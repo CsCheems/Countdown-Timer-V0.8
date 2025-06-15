@@ -36,6 +36,7 @@ let incrementTime = 0;
 let marathonOver = false;
 let isPaused = true;
 let temp = 0;
+let maxTimeReached = false;
 
 const client = new StreamerbotClient({
     host: StreamerbotAddress,
@@ -241,6 +242,20 @@ function AddTimeWithGiftBomb(data){
 
 //AGREGAR TIEMPO//
 function AddTime(secondsToAdd) {
+    if (maxTimeReached) return;
+
+    // Calculate potential new timer value
+    let potentialTimer = timer + secondsToAdd;
+
+    // Check if maxTime is set and if potentialTimer exceeds maxTime
+    if (maxTime > 0 && potentialTimer > maxTime) {
+        secondsToAdd = maxTime - timer; // Adjust secondsToAdd to reach maxTime exactly
+        maxTimeReached = true;
+    }
+
+    if (secondsToAdd <= 0 && maxTimeReached) {
+        return; // No time to add or already at maxTime
+    }
     //AQUI SE CREA EL PINCHE SPAN DE FORMA DINAMICA
     const tiempoAgregado = document.createElement('span');
     tiempoAgregado.className = "tiempoAgregado";
@@ -297,10 +312,16 @@ function startCountdown() {
         countdownDisplay.textContent = `${horas}:${minutos}:${segundos}`;
         temp = countdownDisplay.textContent;
         console.log(temp);
-        if (--timer < 0) {
+        if (--timer < 0 || (maxTime > 0 && timer <= maxTime && maxTimeReached)) {
             marathonOver = true;
             clearInterval(intervalId);
             countdownDisplay.textContent = "¡Se acabó!";
+        }
+        if (maxTime > 0 && timer >= maxTime) {
+            maxTimeReached = true;
+            clearInterval(intervalId);
+            countdownDisplay.textContent = `${horas}:${minutos}:${segundos}`;
+            return;
         }
     }, 1000);
 }
