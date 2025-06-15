@@ -215,11 +215,9 @@ function AddTimeWithReSub(data){
 
 function AddTimeWithGiftBomb(data){
     console.log(data);
-    const totalGiftedSubs = data.gifts;
-    const tiempo = 5;
-    const minSubs = 1;
-    let valorCalculado = totalGiftedSubs / minSubs;
-    valorCalculado = valorCalculado * tiempo;
+    const totalGiftedSubs = data.recipients.length;
+    const tiempo = tier1;
+    let valorCalculado = totalGiftedSubs * tiempo;
 
     valorCalculado = valorCalculado * 60;
     
@@ -490,9 +488,9 @@ function StartTimer(){
         return;
     isPaused = false;
     startCountdown();
-    // setTimeout(() => {
-    //     AddTimeWithSub(data);
-    // }, 5000);
+    setTimeout(() => {
+        AddTimeWithGiftBomb(data);
+    }, 5000);
 }
 
 function ResetTimer(){
@@ -595,7 +593,7 @@ function GetIntParam(paramName, defaultValue) {
 /////////////////////////////////////////////////////
 
 // const data = {
-//   "subTier": 3, /* 0 - Prime, 1 - Tier 1, 2 - Tier 2, 3 - Tier 3 */
+//   "gifts": 6, /* 0 - Prime, 1 - Tier 1, 2 - Tier 2, 3 - Tier 3 */
 //   "color": "#008D99",
 //   "emotes": [],
 //   "message": "",
