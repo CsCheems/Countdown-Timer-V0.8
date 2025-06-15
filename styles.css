@@ -1,0 +1,60 @@
+@import url('https://fonts.googleapis.com/css2?family=Blinker:wght@100;200;300;400;600;700;800;900&family=Cal+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+body{
+	width: 1920px;
+	height: 1080px;
+	overflow: hidden;
+}
+
+/*#status-container {
+	text-transform: uppercase;
+	font-family: 'Metropolis';
+	font-style: italic;
+	font-weight: bold;
+	font-size: 30px;
+	width: 400px;
+	max-width: fit-content;
+	text-align: center;
+	background-color: #D12025;
+	color: white;
+	padding: 10px;
+	border-radius: 10px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}*/
+
+#main-container{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	text-align: center;
+	color: #ffffff;
+	background-color: rgba(0, 0, 0, 0.75);
+	box-shadow: 4px 4px 4px black; 
+	border-radius: 10px;
+	height: 50px;
+	width:150px;
+}
+
+.combo-timer-square {
+    background-color: #FFCC3D;
+    width: 100%;
+    height: 50px;
+	border-radius: 10px;
+	opacity: 0;
+}
+
+#time-wrapper{
+	align-items: center;
+}
+
+
+#timer{
+	padding: 10px;
+	font-family:"Cal Sans", sans-serif;
+	font-size: 24px;
+}
