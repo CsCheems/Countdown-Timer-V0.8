@@ -48,11 +48,6 @@ const timerDiv = document.getElementById("timer");
 timerDiv.style.fontFamily = fuenteLetra;
 timerDiv.style.color = `#${colorFuente}`;
 
-const { r, g, b } = hexToRgb(colorFondo);
-mainContainer.style.backgroundColor = `rgba(${r}, ${g}, ${b}, ${opacity})`;;
-
-
-
 const hexToRgb = (hex) => {
   const cleanHex = hex.replace("#", "");
   const bigint = parseInt(cleanHex, 16);
@@ -61,6 +56,9 @@ const hexToRgb = (hex) => {
   const b = bigint & 255;
   return { r, g, b };
 };
+
+const { r, g, b } = hexToRgb(colorFondo);
+mainContainer.style.backgroundColor = `rgba(${r}, ${g}, ${b}, ${opacity})`;
 
 const client = new StreamerbotClient({
     host: StreamerbotAddress,
