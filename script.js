@@ -14,6 +14,10 @@ const tier2 = GetIntParam("tier2", 20);
 const tier3 = GetIntParam("tier3", 30);
 const minBits = GetIntParam("minBits", 100);
 const bitsTime = GetIntParam("bitsTime", 100);
+const colorFondo = urlParameters.get("fondoColor") || "#000000";
+const opacity = urlParameters.get("opacidad") || 0.75;
+const colorFuente = urlParameters.get("colorFuente") || "#000000";
+const fuenteLetra = urlParameters.get("fuenteLetra" || "Arial");
 const defaultCountdown = 600;
 let timer = startingTime;
 const maxIncrementTime = 5;
@@ -37,6 +41,26 @@ let marathonOver = false;
 let isPaused = true;
 let temp = 0;
 let maxTimeReached = false;
+
+const mainContainer = document.getElementById("main-container");
+const timerDiv = document.getElementsByClassName("timer");
+
+timerDiv.style.fontFamily = fuenteLetra;
+timerDiv.style.color = `#${colorFuente}`;
+
+const { r, g, b } = hexToRgb(colorFondo);
+mainContainer.style.backgroundColor = `rgba(${r}, ${g}, ${b}, ${opacity})`;;
+
+
+
+const hexToRgb = (hex) => {
+  const cleanHex = hex.replace("#", "");
+  const bigint = parseInt(cleanHex, 16);
+  const r = (bigint >> 16) & 255;
+  const g = (bigint >> 8) & 255;
+  const b = bigint & 255;
+  return { r, g, b };
+};
 
 const client = new StreamerbotClient({
     host: StreamerbotAddress,
