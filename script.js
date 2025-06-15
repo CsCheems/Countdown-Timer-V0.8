@@ -64,6 +64,12 @@ mainContainer.style.color = colorFuente;
 const { r, g, b } = hexToRgb(colorFondo);
 mainContainer.style.backgroundColor = `rgba(${r}, ${g}, ${b}, ${opacity})`;
 
+if(opacity > 0){
+    mainContainer.style.boxShadow = "4px 4px 4px black";
+}else{
+    mainContainer.style.boxShadow = "0 0 0 black";
+}
+
 // CONEXIÓN A STREAMERBOT
 const client = new StreamerbotClient({
   host: StreamerbotAddress,
