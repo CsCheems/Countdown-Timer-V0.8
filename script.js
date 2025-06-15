@@ -6,6 +6,8 @@ const StreamerbotAddress = urlParameters.get('address') || '127.0.0.1';
 
 //CONSTANTES
 const comboMode = obtenerBooleanos("comboMode", false);
+const startingTime = GetIntParam("startingtime", 3600);
+const maxTime = GetIntParam("maxTime", 0);
 const tier0 = GetIntParam("tier0", 10);
 const tier1 = GetIntParam("tier1", 10);
 const tier2 = GetIntParam("tier1", 20);
@@ -13,7 +15,7 @@ const tier3 = GetIntParam("tier1", 30);
 const minBits = GetIntParam("minBits", 100);
 const bitsTime = GetIntParam("bitsTime", 100);
 const defaultCountdown = 600;
-let timer = GetIntParam("timer", defaultCountdown);
+let timer = startingTime;
 const maxIncrementTime = 5;
 const minToActivateComboBits = 3;
 
