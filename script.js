@@ -43,7 +43,7 @@ let temp = 0;
 let maxTimeReached = false;
 
 const mainContainer = document.getElementById("main-container");
-const timerDiv = document.getElementsByClassName("timer");
+const timerDiv = document.getElementsById("timer");
 
 timerDiv.style.fontFamily = fuenteLetra;
 timerDiv.style.color = `#${colorFuente}`;
