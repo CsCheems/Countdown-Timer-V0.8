@@ -1,10 +1,21 @@
-//PARAMETROS DE STREAMERBOT//
+// FUNCIONES UTILITARIAS
+
+const hexToRgb = (hex) => {
+  const cleanHex = hex.replace("#", "");
+  const bigint = parseInt(cleanHex, 16);
+  const r = (bigint >> 16) & 255;
+  const g = (bigint >> 8) & 255;
+  const b = bigint & 255;
+  return { r, g, b };
+};
+
+// PARAMETROS DE STREAMERBOT
 const querystring = window.location.search;
 const urlParameters = new URLSearchParams(querystring);
 const StreamerbotPort = urlParameters.get('port') || '8080';
 const StreamerbotAddress = urlParameters.get('address') || '127.0.0.1';
 
-//CONSTANTES
+// CONSTANTES
 const comboMode = obtenerBooleanos("comboMode", false);
 const startingTime = GetIntParam("startingTime", 3600);
 const maxTime = GetIntParam("maxTime", 0);
@@ -16,14 +27,15 @@ const minBits = GetIntParam("minBits", 100);
 const bitsTime = GetIntParam("bitsTime", 100);
 const colorFondo = urlParameters.get("fondoColor") || "#000000";
 const opacity = urlParameters.get("opacidad") || 0.75;
-const colorFuente = urlParameters.get("colorFuente") || "#000000";
-const fuenteLetra = urlParameters.get("fuenteLetra" || "Arial");
+const colorFuente = urlParameters.get("colorFuente") || "#23ff00";
+const fuenteLetra = urlParameters.get("fuenteLetra") || "Arial"; // ← CORREGIDO
 const defaultCountdown = 600;
-let timer = startingTime;
 const maxIncrementTime = 5;
 const minToActivateComboBits = 3;
 
-//VARIABLES
+let timer = startingTime;
+
+// VARIABLES
 let countdownDisplay;
 let intervalId = null;
 let cuentaRegresivaIntervalo = null;
@@ -42,35 +54,29 @@ let isPaused = true;
 let temp = 0;
 let maxTimeReached = false;
 
+// APLICAR ESTILOS
 const mainContainer = document.getElementById("main-container");
 const timerDiv = document.getElementById("timer");
 
 timerDiv.style.fontFamily = fuenteLetra;
-timerDiv.style.color = `#${colorFuente}`;
-
-const hexToRgb = (hex) => {
-  const cleanHex = hex.replace("#", "");
-  const bigint = parseInt(cleanHex, 16);
-  const r = (bigint >> 16) & 255;
-  const g = (bigint >> 8) & 255;
-  const b = bigint & 255;
-  return { r, g, b };
-};
+mainContainer.style.color = colorFuente; // no hace falta el `#` si ya está incluido
 
 const { r, g, b } = hexToRgb(colorFondo);
 mainContainer.style.backgroundColor = `rgba(${r}, ${g}, ${b}, ${opacity})`;
 
+// CONEXIÓN A STREAMERBOT
 const client = new StreamerbotClient({
-    host: StreamerbotAddress,
-    port: StreamerbotPort,
-    onConnect: (data) =>{
-        console.log(data);
-        setConnectionStatus(true);
-    },
-    onDisconnect: () =>{
-        setConnectionStatus(false);
-    }
+  host: StreamerbotAddress,
+  port: StreamerbotPort,
+  onConnect: (data) => {
+    console.log(data);
+    setConnectionStatus(true);
+  },
+  onDisconnect: () => {
+    setConnectionStatus(false);
+  }
 });
+
 
 //COMMAND EVENTS//
 client.on('Command.Triggered', (response) => {
