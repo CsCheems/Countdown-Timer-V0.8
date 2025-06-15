@@ -27,8 +27,8 @@ const minBits = GetIntParam("minBits", 100);
 const bitsTime = GetIntParam("bitsTime", 100);
 const colorFondo = urlParameters.get("fondoColor") || "#000000";
 const opacity = urlParameters.get("opacidad") || 0.75;
-const colorFuente = urlParameters.get("colorFuente") || "#23ff00";
-const fuenteLetra = urlParameters.get("fuenteLetra") || "Arial"; // ← CORREGIDO
+const colorFuente = urlParameters.get("colorFuente") || "#ffffff";
+const fuenteLetra = urlParameters.get("fuenteLetra") || "Arial";
 const defaultCountdown = 600;
 const maxIncrementTime = 5;
 const minToActivateComboBits = 3;
@@ -59,7 +59,7 @@ const mainContainer = document.getElementById("main-container");
 const timerDiv = document.getElementById("timer");
 
 timerDiv.style.fontFamily = fuenteLetra;
-mainContainer.style.color = colorFuente; // no hace falta el `#` si ya está incluido
+mainContainer.style.color = colorFuente;
 
 const { r, g, b } = hexToRgb(colorFondo);
 mainContainer.style.backgroundColor = `rgba(${r}, ${g}, ${b}, ${opacity})`;
