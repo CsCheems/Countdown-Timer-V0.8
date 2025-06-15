@@ -43,7 +43,7 @@ let temp = 0;
 let maxTimeReached = false;
 
 const mainContainer = document.getElementById("main-container");
-const timerDiv = document.getElementsById("timer");
+const timerDiv = document.getElementById("timer");
 
 timerDiv.style.fontFamily = fuenteLetra;
 timerDiv.style.color = `#${colorFuente}`;
@@ -122,40 +122,6 @@ client.on('Twitch.GiftBomb', (response) => {
     else
         return;
 })
-
-//TEST//
-// function RewardRedemption(data){
-//     console.log(data);
-//     console.log(comboMode, combo, isCombocooldown);
-//     const name = data.reward.title;
-//     let tiempo = 0;
-//     if(name != "Add 5 min"){
-//         return;
-//     }else{
-//         tiempo = 5;
-//     }
-
-//     let valorCalculado = 1 * tiempo;
-
-//     valorCalculado = valorCalculado * 60;
-
-//     if(comboMode && combo){
-//         console.log("Step 1: ",incrementTime);
-//         let aumento60Segundos = 60;
-//         if(incrementTime < maxIncrementTime){
-//             incrementTime++;
-//             console.log(incrementTime);
-//         }
-//         aumento60Segundos *= incrementTime;
-//         valorCalculado += aumento60Segundos; 
-//     }
-
-//     if(comboMode && !combo && !isCombocooldown){
-//         iniciarContadorCheers();
-//     }
-    
-//     AddTime(valorCalculado);
-// }
 
 //ADD TIME WITH CHEERS//
 function AddTimeWithCheers(data) {
