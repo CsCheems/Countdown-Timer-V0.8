@@ -29,7 +29,6 @@ const colorFondo = urlParameters.get("fondoColor") || "#000000";
 const opacity = urlParameters.get("opacidad") || 0.75;
 const colorFuente = urlParameters.get("colorFuente") || "#ffffff";
 const fuenteLetra = urlParameters.get("fuenteLetra") || "Arial";
-const defaultCountdown = 600;
 const maxIncrementTime = 5;
 const minToActivateComboBits = 3;
 
@@ -518,7 +517,7 @@ function StartTimer(){
 
 function ResetTimer(){
     isPaused = false;
-    timer = defaultCountdown;
+    timer = startingTime;
     startCountdown();
 }
 
