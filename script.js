@@ -349,9 +349,6 @@ function setConnectionStatus(connected){
 }
 
 //HANDLE SUBS COUNTDOWN
-function iniciarContadorSubs(){
-    contadorSubs
-}
 
 //HANDLE CHEER COUNTDOWN
 function iniciarContadorCheers(){
