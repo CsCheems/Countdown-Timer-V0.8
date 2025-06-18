@@ -18,7 +18,7 @@ const StreamerbotAddress = urlParameters.get('address') || '127.0.0.1';
 // CONSTANTES
 const comboMode = obtenerBooleanos("comboMode", false);
 const startingTime = GetIntParam("startingTime", 3600);
-const maxTime = GetIntParam("maxTime", 0);
+const maxTime = GetIntParam("maxTime", 4400);
 const tier0 = GetIntParam("tier0", 10);
 const tier1 = GetIntParam("tier1", 10);
 const tier2 = GetIntParam("tier2", 20);
@@ -344,10 +344,27 @@ function AddTime(secondsToAdd) {
 //COUNTDOWN TIMER//
 function startCountdown() {
     if (intervalId) clearInterval(intervalId);
+
     intervalId = setInterval(function () {
-        let horas = Math.floor(timer / 3600);
-        let minutos = Math.floor((timer % 3600) / 60);
-        let segundos = timer % 60;
+        // Si timer es 0 o menos, se acabó
+        if (timer <= 0) {
+            marathonOver = true;
+            clearInterval(intervalId);
+            countdownDisplay.textContent = "¡Se acabó!";
+            return;
+        }
+
+        let displayTime = timer;
+
+        // Si ya pasamos el maxTime, mostrar visualmente el maxTime, pero seguir restando internamente
+        if (maxTime > 0 && timer >= maxTime) {
+            maxTimeReached = true;
+            displayTime = maxTime; // mostrar solo hasta maxTime
+        }
+
+        let horas = Math.floor(displayTime / 3600);
+        let minutos = Math.floor((displayTime % 3600) / 60);
+        let segundos = displayTime % 60;
 
         horas = horas < 10 ? "0" + horas : horas;
         minutos = minutos < 10 ? "0" + minutos : minutos;
@@ -356,19 +373,14 @@ function startCountdown() {
         countdownDisplay.textContent = `${horas}:${minutos}:${segundos}`;
         temp = countdownDisplay.textContent;
         console.log(temp);
-        if (--timer < 0 || (maxTime > 0 && timer <= maxTime && maxTimeReached)) {
-            marathonOver = true;
-            clearInterval(intervalId);
-            countdownDisplay.textContent = "¡Se acabó!";
-        }
-        if (maxTime > 0 && timer >= maxTime) {
-            maxTimeReached = true;
-            clearInterval(intervalId);
-            countdownDisplay.textContent = `${horas}:${minutos}:${segundos}`;
-            return;
-        }
+
+        // Este decremento siempre ocurre, incluso si estamos en maxTime
+        timer--;
     }, 1000);
 }
+
+
+
 
 window.addEventListener('load', function () {
     countdownDisplay = document.getElementById('timer');
