@@ -140,6 +140,10 @@ function AddTimeWithCheers(data) {
 
     valorCalculado = valorCalculado * 60;
 
+    if(isPaused){
+
+    }
+
     // if(comboMode && combo){
     //     let aumento60Segundos = 60;
     //     if(incrementTime <= maxIncrementTime){
@@ -507,9 +511,9 @@ function StartTimer(){
         return;
     isPaused = false;
     startCountdown();
-    setTimeout(() => {
-        AddTimeWithGiftBomb(data);
-    }, 5000);
+    // setTimeout(() => {
+    //     AddTimeWithGiftBomb(data);
+    // }, 5000);
 }
 
 function ResetTimer(){
