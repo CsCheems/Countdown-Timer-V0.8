@@ -221,57 +221,35 @@ function AddTimeWithGiftSub(data){
     AddTime(valorCalculado);
 }
 
-function AddTimeWithSub(data){
+function AddTimeWithSub(data) {
     console.log(data);
     const tierSub = data.sub_tier;
-    const tiempo =  obtenerTiers(tierSub);
+    const tiempo = obtenerTiers(tierSub, data.isPrime);
     let valorCalculado = tiempo * 60;
 
-    if(isPaused){
+    if (isPaused) {
         timer = getPausedTime();
         localStorage.clear();
-        valorCalculado = valorCalculado + timer;
+        valorCalculado += timer;
         localStorage.setItem('pause', valorCalculado);
     }
-    
-    // if(comboMode && combo){
-    //     let aumento60Segundos = 60;
-    //     if(incrementTime <= maxIncrementTime){
-    //         incrementTime++;  
-    //     }
-    //     aumento60Segundos *= incrementTime; 
-    //     valorCalculado += aumento60Segundos; 
-    // }
-    // if(bits >= minBits && comboMode && !combo){
-    //     iniciarContadorSubs();
-    // }
+
     AddTime(valorCalculado);
 }
 
-function AddTimeWithReSub(data){
+function AddTimeWithReSub(data) {
     console.log(data);
     const tierSub = data.subTier;
-    const tiempo =  obtenerTiers(tierSub);
+    const tiempo = obtenerTiers(tierSub, data.isPrime);
     let valorCalculado = tiempo * 60;
 
-    if(isPaused){
+    if (isPaused) {
         timer = getPausedTime();
         localStorage.clear();
-        valorCalculado = valorCalculado + timer;
+        valorCalculado += timer;
         localStorage.setItem('pause', valorCalculado);
     }
-    
-    // if(comboMode && combo){
-    //     let aumento60Segundos = 60;
-    //     if(incrementTime <= maxIncrementTime){
-    //         incrementTime++;  
-    //     }
-    //     aumento60Segundos *= incrementTime; 
-    //     valorCalculado += aumento60Segundos; 
-    // }
-    // if(bits >= minBits && comboMode && !combo){
-    //     iniciarContadorSubs();
-    // }
+
     AddTime(valorCalculado);
 }
 
@@ -618,28 +596,24 @@ function handleCommand(data){
     }
 }
 
-function obtenerTiers(subTier) {
-    let time = 0;
-    switch(subTier){
+function obtenerTiers(subTier, isPrime = false) {
+    const tier = isPrime ? 0 : parseInt(subTier, 10);
+
+    switch (tier) {
         case 0:
-            time = tier0;
-            break;
+            return tier0;
         case 1000:
-            time = tier1;
-            break;
+            return tier1;
         case 2000:
-            time = tier2;
-            break;
+            return tier2;
         case 3000:
-            time = tier3;
-            break;
+            return tier3;
         default:
             console.warn(`subTier desconocido (${subTier}), se usará tier0 como valor por defecto.`);
-            time = tier0;
-            break;
+            return tier0;
     }
-    return time;
 }
+
 
 function obtenerBooleanos(paramName, defaultValue) {
 	const urlParams = new URLSearchParams(window.location.search);
