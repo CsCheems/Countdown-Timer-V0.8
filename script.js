@@ -133,7 +133,40 @@ client.on('Twitch.GiftBomb', (response) => {
 })
 
 //ADD TIME WITH CHEERS//
+function RewardRedemption(data) {
+    console.log(data);
+    
+    const title = data.reward.title;
+    let valorCalculado = 0;
+    let valorCalculadoPausado = 0;
+    if(title === "Add 5 min"){
+        valorCalculado = 300;
+    }
+
+    if(isPaused){
+        timer = getPausedTime();
+        localStorage.clear();
+        valorCalculadoPausado = valorCalculado + timer;
+        localStorage.setItem('pause', valorCalculadoPausado);
+    }
+    // if(comboMode && combo){
+    //     let aumento60Segundos = 60;
+    //     if(incrementTime <= maxIncrementTime){
+    //         incrementTime++;  
+    //     }
+    //     aumento60Segundos *= incrementTime; 
+    //     valorCalculado += aumento60Segundos; 
+    // }
+    // if(bits >= minBits && comboMode && !combo){
+    //     iniciarContadorCheers();
+    // }
+    AddTime(valorCalculado);
+}
+
+
+//ADD TIME WITH CHEERS//
 function AddTimeWithCheers(data) {
+    console.log(data);
     const bits = data.message.bits;
     let valorCalculado = bits / minBits;
     valorCalculado = valorCalculado * bitsTime;
@@ -141,9 +174,11 @@ function AddTimeWithCheers(data) {
     valorCalculado = valorCalculado * 60;
 
     if(isPaused){
-
+        timer = getPausedTime();
+        localStorage.clear();
+        valorCalculado = valorCalculado + timer;
+        localStorage.setItem('pause', valorCalculado);
     }
-
     // if(comboMode && combo){
     //     let aumento60Segundos = 60;
     //     if(incrementTime <= maxIncrementTime){
@@ -164,6 +199,13 @@ function AddTimeWithGiftSub(data){
     const tierSub = data.subTier;
     const tiempo =  obtenerTiers(tierSub);
     let valorCalculado = tiempo * 60;
+
+    if(isPaused){
+        timer = getPausedTime();
+        localStorage.clear();
+        valorCalculado = valorCalculado + timer;
+        localStorage.setItem('pause', valorCalculado);
+    }
     
     // if(comboMode && combo){
     //     let aumento60Segundos = 60;
@@ -184,6 +226,13 @@ function AddTimeWithSub(data){
     const tierSub = data.sub_tier;
     const tiempo =  obtenerTiers(tierSub);
     let valorCalculado = tiempo * 60;
+
+    if(isPaused){
+        timer = getPausedTime();
+        localStorage.clear();
+        valorCalculado = valorCalculado + timer;
+        localStorage.setItem('pause', valorCalculado);
+    }
     
     // if(comboMode && combo){
     //     let aumento60Segundos = 60;
@@ -204,6 +253,13 @@ function AddTimeWithReSub(data){
     const tierSub = data.subTier;
     const tiempo =  obtenerTiers(tierSub);
     let valorCalculado = tiempo * 60;
+
+    if(isPaused){
+        timer = getPausedTime();
+        localStorage.clear();
+        valorCalculado = valorCalculado + timer;
+        localStorage.setItem('pause', valorCalculado);
+    }
     
     // if(comboMode && combo){
     //     let aumento60Segundos = 60;
@@ -226,6 +282,13 @@ function AddTimeWithGiftBomb(data){
     let valorCalculado = totalGiftedSubs * tiempo;
 
     valorCalculado = valorCalculado * 60;
+
+    if(isPaused){
+        timer = getPausedTime();
+        localStorage.clear();
+        valorCalculado = valorCalculado + timer;
+        localStorage.setItem('pause', valorCalculado);
+    }
     
     // if(comboMode && combo){
     //     let aumento60Segundos = 60;
@@ -502,7 +565,8 @@ function ResumeTimer(){
     if(!isPaused)
         return;
     isPaused = false;
-    timer = localStorage.getItem('pause');
+    timer = getPausedTime();
+    localStorage.removeItem('pause');
     startCountdown();
 }
 
@@ -522,10 +586,15 @@ function ResetTimer(){
     startCountdown();
 }
 
+function addToTimer(){
+
+}
+
 
 
 //HELPERS//
 function handleCommand(data){
+    console.log(data);
     const comando = data.name;
     switch(comando){
         case 'pause':
@@ -540,23 +609,33 @@ function handleCommand(data){
         case 'resume':
             ResumeTimer();
             break;
+        case 'addTime':
+            addToTimer();
+            break;
+        default:
+            console.warn('Comando no reconocido');
+            break;
     }
 }
 
-function obtenerTiers(subTier){
+function obtenerTiers(subTier) {
     let time = 0;
     switch(subTier){
         case 0:
             time = tier0;
             break;
-        case 1:
+        case 1000:
             time = tier1;
             break;
-        case 2:
+        case 2000:
             time = tier2;
             break;
-        case 3:
+        case 3000:
             time = tier3;
+            break;
+        default:
+            console.warn(`subTier desconocido (${subTier}), se usará tier0 como valor por defecto.`);
+            time = tier0;
             break;
     }
     return time;
@@ -600,6 +679,10 @@ function GetIntParam(paramName, defaultValue) {
 	return intValue;
 }
 
+function getPausedTime() {
+    return parseFloat(localStorage.getItem('pause')) || 0;
+}
+
 /////////////////////////////////////////////////////
 /////////////////////////////////////////////////////
 /////////////////////////////////////////////////////
@@ -625,3 +708,64 @@ function GetIntParam(paramName, defaultValue) {
 //   "displayName": "<display name>",
 //   "role": 1 /* 1 - Viewer, 2 - VIP, 3 - Moderator, 4 - Broadcaster  */
 // }
+
+
+//   const data = {
+//     "id": "6657894621625748",
+//     "total": 5,
+//     "cumulative_total": 5,
+//     "sub_tier": "1000",
+//     "recipients": [
+//       {
+//         "id": "1234560",
+//         "login": "username0",
+//         "name": "userName0",
+//         "type": "twitch"
+//       },
+//       {
+//         "id": "1234561",
+//         "login": "username1",
+//         "name": "userName1",
+//         "type": "twitch"
+//       },
+//       {
+//         "id": "1234562",
+//         "login": "username2",
+//         "name": "userName2",
+//         "type": "twitch"
+//       },
+//       {
+//         "id": "1234563",
+//         "login": "username3",
+//         "name": "userName3",
+//         "type": "twitch"
+//       },
+//       {
+//         "id": "1234564",
+//         "login": "username4",
+//         "name": "userName4",
+//         "type": "twitch"
+//       }
+//     ],
+//     "user": {
+//       "role": 1,
+//       "badges": [
+//         {
+//           "name": "badge1",
+//           "version": "0",
+//           "imageUrl": "https://static-cdn.jtvnw.net/badges/v1/wedw232-sdq2-34w8-weq9-987asd8w7/3",
+//           "info": ""
+//         }
+//       ],
+//       "color": "#ABCDEF",
+//       "subscribed": false,
+//       "monthsSubscribed": 0,
+//       "id": "987654",
+//       "login": "username",
+//       "name": "userName",
+//       "type": "twitch"
+//     },
+//     "messageId": "98765423-qwd3a-qwef-jtzz8-56476er21gdg",
+//     "systemMessage": "userName is gifting 5 Tier 1 Subs to OtherUser's community! They've gifted a total of 5 in the channel!",
+//     "isTest": false
+//   }
