@@ -232,9 +232,8 @@ function AddTimeWithReSub(data) {
 
 function AddTimeWithGiftBomb(data){
     console.log("GiftBomb: ", data);
-    //const totalGiftedSubs = data.recipients.length;
-    const totalGiftedSubs = data.total;
-    const tiempo = tier1;
+    const totalGiftedSubs = data.recipients.length;
+    const tiempo = obtenerGiftBombTiers(data.recipients.sub_tier);
     let valorCalculado = totalGiftedSubs * tiempo;
 
     valorCalculado = valorCalculado * 60;
@@ -256,7 +255,7 @@ function AddTime(secondsToAdd) {
     let potentialTimer = timer + secondsToAdd;
     if (maxTime > 0 && potentialTimer > maxTime) {
         secondsToAdd = maxTime - timer;
-        maxTimeReached = true;
+        maxTimeReached = true; 
     }
 
     if (secondsToAdd <= 0 && maxTimeReached) {
@@ -517,9 +516,9 @@ function StartTimer(){
         return;
     isPaused = false;
     startCountdown();
-    setTimeout(() => {
-        AddTimeWithGiftBomb(data);
-    }, 5000);
+    // setTimeout(() => {
+    //     AddTimeWithGiftBomb(data);
+    // }, 5000);
 }
 
 function ResetTimer(){
@@ -575,6 +574,21 @@ function obtenerTiers(subTier, isPrime = false) {
         default:
             console.warn(`subTier desconocido (${subTier}), se usará tier0 como valor por defecto.`);
             return tier0;
+    }
+}
+
+function obtenerGiftBombTiers(sub_tier) {
+    const tier = parseInt(sub_tier);
+    switch (tier) {
+        case 1000:
+            return tier1;
+        case 2000:
+            return tier2;
+        case 3000:
+            return tier3;
+        default:
+            console.warn(`subTier desconocido (${sub_tier}), se usará tier0 como valor por defecto.`);
+            return tier1;
     }
 }
 
@@ -648,62 +662,62 @@ function getPausedTime() {
 // }
 
 
-  const data = {
-    "id": "6657894621625748",
-    "total": 2,
-    "cumulative_total": 2,
-    "sub_tier": "1000",
-    "recipients": [
-      {
-        "id": "1234560",
-        "login": "username0",
-        "name": "userName0",
-        "type": "twitch"
-      },
-      {
-        "id": "1234561",
-        "login": "username1",
-        "name": "userName1",
-        "type": "twitch"
-      },
-      {
-        "id": "1234562",
-        "login": "username2",
-        "name": "userName2",
-        "type": "twitch"
-      },
-      {
-        "id": "1234563",
-        "login": "username3",
-        "name": "userName3",
-        "type": "twitch"
-      },
-      {
-        "id": "1234564",
-        "login": "username4",
-        "name": "userName4",
-        "type": "twitch"
-      }
-    ],
-    "user": {
-      "role": 1,
-      "badges": [
-        {
-          "name": "badge1",
-          "version": "0",
-          "imageUrl": "https://static-cdn.jtvnw.net/badges/v1/wedw232-sdq2-34w8-weq9-987asd8w7/3",
-          "info": ""
-        }
-      ],
-      "color": "#ABCDEF",
-      "subscribed": false,
-      "monthsSubscribed": 0,
-      "id": "987654",
-      "login": "username",
-      "name": "userName",
-      "type": "twitch"
-    },
-    "messageId": "98765423-qwd3a-qwef-jtzz8-56476er21gdg",
-    "systemMessage": "userName is gifting 5 Tier 1 Subs to OtherUser's community! They've gifted a total of 5 in the channel!",
-    "isTest": false
-  }
+//   const data = {
+//     "id": "6657894621625748",
+//     "total": 2,
+//     "cumulative_total": 2,
+//     "sub_tier": 3000,
+//     "recipients": [
+//       {
+//         "id": "1234560",
+//         "login": "username0",
+//         "name": "userName0",
+//         "type": "twitch"
+//       },
+//       {
+//         "id": "1234561",
+//         "login": "username1",
+//         "name": "userName1",
+//         "type": "twitch"
+//       },
+//       {
+//         "id": "1234562",
+//         "login": "username2",
+//         "name": "userName2",
+//         "type": "twitch"
+//       },
+//       {
+//         "id": "1234563",
+//         "login": "username3",
+//         "name": "userName3",
+//         "type": "twitch"
+//       },
+//       {
+//         "id": "1234564",
+//         "login": "username4",
+//         "name": "userName4",
+//         "type": "twitch"
+//       }
+//     ],
+//     "user": {
+//       "role": 1,
+//       "badges": [
+//         {
+//           "name": "badge1",
+//           "version": "0",
+//           "imageUrl": "https://static-cdn.jtvnw.net/badges/v1/wedw232-sdq2-34w8-weq9-987asd8w7/3",
+//           "info": ""
+//         }
+//       ],
+//       "color": "#ABCDEF",
+//       "subscribed": false,
+//       "monthsSubscribed": 0,
+//       "id": "987654",
+//       "login": "username",
+//       "name": "userName",
+//       "type": "twitch"
+//     },
+//     "messageId": "98765423-qwd3a-qwef-jtzz8-56476er21gdg",
+//     "systemMessage": "userName is gifting 5 Tier 1 Subs to OtherUser's community! They've gifted a total of 5 in the channel!",
+//     "isTest": false
+//   }
