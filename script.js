@@ -166,7 +166,7 @@ function RewardRedemption(data) {
 
 //ADD TIME WITH CHEERS//
 function AddTimeWithCheers(data) {
-    console.log(data);
+    console.log("Cheers: ", data);
     const bits = data.message.bits;
     let valorCalculado = bits / minBits;
     valorCalculado = valorCalculado * bitsTime;
@@ -179,23 +179,12 @@ function AddTimeWithCheers(data) {
         valorCalculado = valorCalculado + timer;
         localStorage.setItem('pause', valorCalculado);
     }
-    // if(comboMode && combo){
-    //     let aumento60Segundos = 60;
-    //     if(incrementTime <= maxIncrementTime){
-    //         incrementTime++;  
-    //     }
-    //     aumento60Segundos *= incrementTime; 
-    //     valorCalculado += aumento60Segundos; 
-    // }
-    // if(bits >= minBits && comboMode && !combo){
-    //     iniciarContadorCheers();
-    // }
     AddTime(valorCalculado);
 }
 
 //AGREGAR TIEMPO CON GIFBOMB
 function AddTimeWithGiftSub(data){
-    console.log(data);
+    console.log("Gift Sub: ", data);
     const tierSub = data.subTier;
     const tiempo =  obtenerTiers(tierSub);
     let valorCalculado = tiempo * 60;
@@ -206,23 +195,11 @@ function AddTimeWithGiftSub(data){
         valorCalculado = valorCalculado + timer;
         localStorage.setItem('pause', valorCalculado);
     }
-    
-    // if(comboMode && combo){
-    //     let aumento60Segundos = 60;
-    //     if(incrementTime <= maxIncrementTime){
-    //         incrementTime++;  
-    //     }
-    //     aumento60Segundos *= incrementTime; 
-    //     valorCalculado += aumento60Segundos; 
-    // }
-    // if(bits >= minBits && comboMode && !combo){
-    //     iniciarContadorSubs();
-    // }
     AddTime(valorCalculado);
 }
 
 function AddTimeWithSub(data) {
-    console.log(data);
+    console.log("Sub: ", data);
     const tierSub = data.sub_tier;
     const tiempo = obtenerTiers(tierSub, data.isPrime);
     let valorCalculado = tiempo * 60;
@@ -238,7 +215,7 @@ function AddTimeWithSub(data) {
 }
 
 function AddTimeWithReSub(data) {
-    console.log(data);
+    console.log("ReSub: ", data);
     const tierSub = data.subTier;
     const tiempo = obtenerTiers(tierSub, data.isPrime);
     let valorCalculado = tiempo * 60;
@@ -254,7 +231,7 @@ function AddTimeWithReSub(data) {
 }
 
 function AddTimeWithGiftBomb(data){
-    console.log(data);
+    console.log("GiftBomb: ", data);
     const totalGiftedSubs = data.recipients.length;
     const tiempo = tier1;
     let valorCalculado = totalGiftedSubs * tiempo;
@@ -267,18 +244,6 @@ function AddTimeWithGiftBomb(data){
         valorCalculado = valorCalculado + timer;
         localStorage.setItem('pause', valorCalculado);
     }
-    
-    // if(comboMode && combo){
-    //     let aumento60Segundos = 60;
-    //     if(incrementTime <= maxIncrementTime){
-    //         incrementTime++;  
-    //     }
-    //     aumento60Segundos *= incrementTime; 
-    //     valorCalculado += aumento60Segundos; 
-    // }
-    // if(bits >= minBits && comboMode && !combo){
-    //     iniciarContadorSubs();
-    // }
     AddTime(valorCalculado);
 }
 
@@ -287,20 +252,15 @@ function AddTimeWithGiftBomb(data){
 //AGREGAR TIEMPO//
 function AddTime(secondsToAdd) {
     if (maxTimeReached) return;
-
-    // Calculate potential new timer value
     let potentialTimer = timer + secondsToAdd;
-
-    // Check if maxTime is set and if potentialTimer exceeds maxTime
     if (maxTime > 0 && potentialTimer > maxTime) {
-        secondsToAdd = maxTime - timer; // Adjust secondsToAdd to reach maxTime exactly
+        secondsToAdd = maxTime - timer;
         maxTimeReached = true;
     }
 
     if (secondsToAdd <= 0 && maxTimeReached) {
-        return; // No time to add or already at maxTime
+        return;
     }
-    //AQUI SE CREA EL PINCHE SPAN DE FORMA DINAMICA
     const tiempoAgregado = document.createElement('span');
     tiempoAgregado.className = "tiempoAgregado";
     tiempoAgregado.style.color = "#00F700";
@@ -312,27 +272,22 @@ function AddTime(secondsToAdd) {
     tiempoAgregado.style.transform = "translate(-40%, -140%)";
     tiempoAgregado.style.transition = "opacity 1s ease-in";
     tiempoAgregado.style.right = "10px";
-
-    //AL TIME WRAPPER LE METEMOS DE HIJO EL SPAN ALV
     const timeWrapper = document.getElementById('time-wrapper');
     timeWrapper.appendChild(tiempoAgregado);
 
-    //ANIMAMOS EL SPAN PARA QUE SE VEA AESTHETIC COMO DICEN LOS INDIGENAS
     gsap.to(tiempoAgregado, {
         opacity: 1,
         duration:0.6,
         ease: "power2.out",  
         y: -55 
     });
-    
-    //Y UNA MAS PARA EL DESVANECIMIENTO CSM
+
     gsap.to(tiempoAgregado, {
         opacity: 0,
         duration:0.6,
         ease: "power2.in",  
     });
 
-    //MANDAMOS ALV EL SPAN
     setTimeout(() => {
         timeWrapper.removeChild(tiempoAgregado);
     }, 2000);
