@@ -264,7 +264,7 @@ function AddTime(secondsToAdd) {
     const tiempoAgregado = document.createElement('span');
     tiempoAgregado.className = "tiempoAgregado";
     tiempoAgregado.style.color = "#00F700";
-    tiempoAgregado.style.fontSize = "18px";
+    tiempoAgregado.style.fontSize = "15px";
     tiempoAgregado.style.fontFamily = "Cal Sans";
     tiempoAgregado.opacity = "0";
     tiempoAgregado.innerHTML = `+${secondsToAdd}`;
