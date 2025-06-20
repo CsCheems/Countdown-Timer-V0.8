@@ -171,7 +171,7 @@ function AddTimeWithCheers(data) {
     let valorCalculado = bits / minBits;
     valorCalculado = valorCalculado * bitsTime;
 
-    valorCalculado = valorCalculado * 60;
+    valorCalculado = Math.round(valorCalculado * 60);
 
     if(isPaused){
         timer = getPausedTime();
@@ -187,7 +187,7 @@ function AddTimeWithGiftSub(data){
     console.log("Gift Sub: ", data);
     const tierSub = data.subTier;
     const tiempo =  obtenerTiers(tierSub);
-    let valorCalculado = tiempo * 60;
+    let valorCalculado = Math.round(tiempo * 60);
 
     if(isPaused){
         timer = getPausedTime();
@@ -202,7 +202,7 @@ function AddTimeWithSub(data) {
     console.log("Sub: ", data);
     const tierSub = data.sub_tier;
     const tiempo = obtenerTiers(tierSub, data.isPrime);
-    let valorCalculado = tiempo * 60;
+    let valorCalculado = Math.round(tiempo * 60);
 
     if (isPaused) {
         timer = getPausedTime();
@@ -218,7 +218,7 @@ function AddTimeWithReSub(data) {
     console.log("ReSub: ", data);
     const tierSub = data.subTier;
     const tiempo = obtenerTiers(tierSub, data.isPrime);
-    let valorCalculado = tiempo * 60;
+    let valorCalculado = Math.round(tiempo * 60);
 
     if (isPaused) {
         timer = getPausedTime();
@@ -236,7 +236,7 @@ function AddTimeWithGiftBomb(data){
     const tiempo = obtenerGiftBombTiers(data.recipients.sub_tier);
     let valorCalculado = totalGiftedSubs * tiempo;
 
-    valorCalculado = valorCalculado * 60;
+    valorCalculado = Math.round(valorCalculado * 60);
 
     if(isPaused){
         timer = getPausedTime();
@@ -251,6 +251,7 @@ function AddTimeWithGiftBomb(data){
 
 //AGREGAR TIEMPO//
 function AddTime(secondsToAdd) {
+    secondsToAdd = Math.round(secondsToAdd);
     if (maxTimeReached) return;
     let potentialTimer = timer + secondsToAdd;
     if (maxTime > 0 && potentialTimer > maxTime) {
@@ -317,7 +318,7 @@ function startCountdown() {
 
         let horas = Math.floor(displayTime / 3600);
         let minutos = Math.floor((displayTime % 3600) / 60);
-        let segundos = displayTime % 60;
+        let segundos = Math.floor(displayTime % 60);
 
         horas = horas < 10 ? "0" + horas : horas;
         minutos = minutos < 10 ? "0" + minutos : minutos;
