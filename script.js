@@ -32,7 +32,7 @@ const fuenteLetra = urlParameters.get("fuenteLetra") || "Arial";
 const maxIncrementTime = 5;
 const minToActivateComboBits = 3;
 
-let timer = startingTime;
+let timer = startingTime; 
 
 // VARIABLES
 let countdownDisplay;
@@ -527,8 +527,14 @@ function ResetTimer(){
     startCountdown();
 }
 
-function addToTimer(){
-
+function addToTimer(message) {
+    if (isPaused) return;
+    const agregarSegundos = parseInt(message);
+    if (isNaN(agregarSegundos)) {
+        console.warn("addToTimer: No es un número válido:", message);
+        return;
+    }
+    AddTime(agregarSegundos);
 }
 
 
@@ -537,6 +543,7 @@ function addToTimer(){
 function handleCommand(data){
     console.log(data);
     const comando = data.name;
+    const message = data.message;
     switch(comando){
         case 'pause':
             PauseTimer();
@@ -550,8 +557,8 @@ function handleCommand(data){
         case 'resume':
             ResumeTimer();
             break;
-        case 'addTime':
-            addToTimer();
+        case 'addTime': 
+            addToTimer(message);
             break;
         default:
             console.warn('Comando no reconocido');
