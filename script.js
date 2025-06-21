@@ -136,7 +136,7 @@ client.on("Twitch.GiftBomb", (response) => {
 // HELPER PARA MANEJAR TIEMPO PAUSADO
 function getAdjustedTime(calculatedTime) {
     if (isPaused) {
-        const pausedTime = getPausedTime(); // Asumo que esta función existe y es externa o global
+        const pausedTime = getPausedTime();
         localStorage.clear();
         const newTime = calculatedTime + pausedTime;
         localStorage.setItem('pause', newTime);
