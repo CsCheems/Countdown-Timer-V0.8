@@ -473,7 +473,6 @@ function comboTimeAnimation() {
     });
 }
 
-
 //MANIPULACION DE TIMER//
 function PauseTimer(){
     if(isPaused)
@@ -497,9 +496,6 @@ function StartTimer(){
         return;
     isPaused = false;
     startCountdown();
-    // setTimeout(() => {
-    //     AddTimeWithGiftBomb(data);
-    // }, 5000);
 }
 
 function ResetTimer(){
