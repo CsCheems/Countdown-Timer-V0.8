@@ -161,26 +161,26 @@ client.on("Kofi.Donation", (response) => {
         return;
 });
 
-client.on("Kofi.Subscription", (response) => {
-    if(!marathonOver)
-        addTimeKofiSubscription(response.data);
-    else
-        return;
-});
+// client.on("Kofi.Subscription", (response) => {
+//     if(!marathonOver)
+//         addTimeKofiSubscription(response.data);
+//     else
+//         return;
+// });
 
-client.on("Kofi.Resubscription", (response) => {
-    if(!marathonOver)
-        addTimeKofiResubscription(response.data);
-    else
-        return;
-});
+// client.on("Kofi.Resubscription", (response) => {
+//     if(!marathonOver)
+//         addTimeKofiResubscription(response.data);
+//     else
+//         return;
+// });
 
-client.on("Kofi.ShopOrder", (response) => {
-    if(!marathonOver)
-        addTimeKofiShopOrder(response.data);
-    else
-        return;
-});
+// client.on("Kofi.ShopOrder", (response) => {
+//     if(!marathonOver)
+//         addTimeKofiShopOrder(response.data);
+//     else
+//         return;
+// });
 
 // HELPER PARA MANEJAR TIEMPO PAUSADO
 function getAdjustedTime(calculatedTime) {

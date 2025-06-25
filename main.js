@@ -1,7 +1,7 @@
-import { hexToRgb } from './utils.js';
-import { colorFondo, opacity, colorFuente, fuenteLetra } from './constantes.js';
-import { initializeTimer } from './timeHandler.js';
-import { initializeStreamerbotClient } from './streamerbot.js';
+import { hexToRgb } from './src/utils.js';
+import { colorFondo, opacity, colorFuente, fuenteLetra } from './src/constantes.js';
+import { initializeTimer } from './src/timeHandler.js';
+import { initializeStreamerbotClient } from './src/streamerbot.js';
 
 // APLICAR ESTILOS
 const mainContainer = document.getElementById("main-container");
@@ -23,7 +23,6 @@ if (mainContainer) {
         mainContainer.style.boxShadow = "0 0 0 black";
     }
 }
-
 
 window.addEventListener("load", function () {
     const countdownDisplay = document.getElementById("timer");

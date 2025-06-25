@@ -1,4 +1,36 @@
+
 <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles.css"/>
+    <script src="https://unpkg.com/@streamerbot/client/dist/streamerbot-client.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <title>Streamerbot Timer</title>
+</head>
+<body>
+    <div id="status-container">CONECTANDO...</div>
+    <div id="main-container">
+       <div id="combo-timer-container" style="position: relative; width: 100%; height: 50px;">
+            <div id="combo-timer-square" class="combo-timer-square"></div>
+                <div id="combo-wrapper" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
+                    <div id="time-wrapper">
+                         <div id="timer">!start</div>
+                    </div>
+                </div>
+            </div>
+    </div>
+</body>
+<!-- Carga tu script principal como un módulo ES6 -->
+<script type="module" src="./main.js"></script>
+</html>
+
+
+
+<!--VERSION ANTERIOR-->
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -24,5 +56,5 @@
     </div>
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-<script text="script" src="./script.js"></script>
-</html>
+<script text="script" src="script.js"></script>
+</html> -->

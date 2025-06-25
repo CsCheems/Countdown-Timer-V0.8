@@ -1,7 +1,7 @@
 import { StreamerbotAddress, StreamerbotPort } from './constantes.js';
 import {
     RewardRedemption, AddTimeWithCheers, AddTimeWithSub, AddTimeWithReSub,
-    AddTimeWithGiftSub, AddTimeWithGiftBomb,
+    AddTimeWithGiftSub, AddTimeWithGiftBomb, addTimeKofiDonation,
     handleCommand
 } from './eventsHandler.js';
 
