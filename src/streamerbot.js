@@ -1,4 +1,7 @@
+import { StreamerbotClient } from 'https://unpkg.com/@streamerbot/client/dist/streamerbot-client.esm.js?module';
+
 import { StreamerbotAddress, StreamerbotPort } from './constantes.js';
+
 import {
     RewardRedemption, AddTimeWithCheers, AddTimeWithSub, AddTimeWithReSub,
     AddTimeWithGiftSub, AddTimeWithGiftBomb, addTimeKofiDonation,
@@ -7,7 +10,7 @@ import {
 
 export function initializeStreamerbotClient() {
 
-    const client = new window.StreamerbotClient({
+    const client = new StreamerbotClient({
         host: StreamerbotAddress,
         port: StreamerbotPort,
         onConnect: (data) => {
@@ -18,8 +21,6 @@ export function initializeStreamerbotClient() {
             setConnectionStatus(false);
         }
     });
-
-    window.client = client;
 
     // COMMAND EVENTS
     client.on("Command.Triggered", (response) => {
