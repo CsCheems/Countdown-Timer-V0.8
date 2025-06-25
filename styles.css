@@ -1,5 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Blinker:wght@100;200;300;400;600;700;800;900&family=Cal+Sans&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Blinker:wght@100;200;300;400;600;700;800;900&family=Cal+Sans&display=swap' );
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap' );
 
 body{
 	width: 1920px;
@@ -7,9 +7,9 @@ body{
 	overflow: hidden;
 }
 
-/* #status-container {
+#status-container {
 	text-transform: uppercase;
-	font-family: 'Metropolis';
+	font-family: 'Metropolis'; /* Asegúrate de que esta fuente esté disponible o cámbiala */
 	font-style: italic;
 	font-weight: bold;
 	font-size: 30px;
@@ -24,7 +24,7 @@ body{
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-} */
+}
 
 #main-container{
 	position: absolute;
