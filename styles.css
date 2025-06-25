@@ -7,7 +7,7 @@ body{
 	overflow: hidden;
 }
 
-/*#status-container {
+/* #status-container {
 	text-transform: uppercase;
 	font-family: 'Metropolis';
 	font-style: italic;
@@ -24,7 +24,7 @@ body{
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-}*/
+} */
 
 #main-container{
 	position: absolute;

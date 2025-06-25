@@ -1,5 +1,4 @@
 // FUNCIONES UTILITARIAS
-
 const hexToRgb = (hex) => {
   const cleanHex = hex.replace("#", "");
   const bigint = parseInt(cleanHex, 16);
@@ -18,22 +17,44 @@ const StreamerbotAddress = urlParameters.get("address") || "127.0.0.1";
 // CONSTANTES
 const comboMode = obtenerBooleanos("comboMode", false);
 const startingTime = GetIntParam("startingTime", 3600);
-const maxTime = GetIntParam("maxTime", 0);
+const maxTime = GetIntParam("maxTime", 7200);
+
+//TWITCH
 const tier0 = GetIntParam("tier0", 17);
 const tier1 = GetIntParam("tier1", 15);
 const tier2 = GetIntParam("tier2", 20);
 const tier3 = GetIntParam("tier3", 25);
 const minBits = GetIntParam("minBits", 100);
 const bitsTime = GetIntParam("bitsTime", 13);
+
+//KOFI
+const dono1 = GetIntParam("dono1", 3);
+const dono2 = GetIntParam("dono2", 6);
+const dono3 = GetIntParam("dono3", 9);
+const dono1Time = GetIntParam("dono1Time", 20);
+const dono2Time = GetIntParam("dono2Time", 30);
+const dono3Time = GetIntParam("dono3Time", 40);
+
+const donationTiers = [
+    {cantidad: dono1, tiempo: dono1Time * 60},
+    {cantidad: dono2, tiempo: dono2Time * 60},
+    {cantidad: dono3, tiempo: dono3Time * 60}
+]
+
+//VISUAL
 const colorFondo = urlParameters.get("fondoColor") || "#000000";
 const opacity = urlParameters.get("opacidad") || 0.75;
 const colorFuente = urlParameters.get("colorFuente") || "#ffffff";
 const fuenteLetra = urlParameters.get("fuenteLetra") || "Arial";
+
+//MISC
 const maxIncrementTime = 5;
 const minToActivateComboBits = 3;
-const processedGiftBombIds = new Set();
+const processedGiftBombIds = new Set(); 
 
 let timer = startingTime; 
+
+let totalTime = startingTime;
 
 // VARIABLES DE ESTADO
 let countdownDisplay;
@@ -133,6 +154,34 @@ client.on("Twitch.GiftBomb", (response) => {
         return;
 });
 
+client.on("Kofi.Donation", (response) => {
+    if(!marathonOver)
+        addTimeKofiDonation(response.data);
+    else
+        return;
+});
+
+client.on("Kofi.Subscription", (response) => {
+    if(!marathonOver)
+        addTimeKofiSubscription(response.data);
+    else
+        return;
+});
+
+client.on("Kofi.Resubscription", (response) => {
+    if(!marathonOver)
+        addTimeKofiResubscription(response.data);
+    else
+        return;
+});
+
+client.on("Kofi.ShopOrder", (response) => {
+    if(!marathonOver)
+        addTimeKofiShopOrder(response.data);
+    else
+        return;
+});
+
 // HELPER PARA MANEJAR TIEMPO PAUSADO
 function getAdjustedTime(calculatedTime) {
     if (isPaused) {
@@ -206,28 +255,66 @@ function AddTimeWithGiftBomb(data){
     AddTime(getAdjustedTime(valorCalculado));
 }
 
+function addTimeKofiDonation(data){
+    console.log(data);
+    const cantidad = parseFloat(data.amount);
+    let valorCalculado = 0;
+
+    const tiersOrdenados = donationTiers.sort((a, b) => b.cantidad - a.cantidad);
+
+    for(const tier of tiersOrdenados){
+        if(cantidad >= tier.cantidad){
+            valorCalculado = tier.tiempo;
+            break;
+        }
+    }
+
+    if(valorCalculado > 0){
+        AddTime(getAdjustedTime(valorCalculado));
+    }else{
+        return;
+    }
+}
+
+function addTimeKofiSubscription(data){
+    console.log(data);
+}
+
+function addTimeKofiResubscription(data){
+    console.log(data);
+}
+
+function addTimeKofiShopOrder(data){
+    console.log(data);
+}
+
 
 //AGREGAR TIEMPO//
 function AddTime(secondsToAdd) {
     secondsToAdd = Math.round(secondsToAdd);
-    if (maxTimeReached) return;
-    let potentialTimer = timer + secondsToAdd;
-    if (maxTime > 0 && potentialTimer > maxTime) {
-        secondsToAdd = maxTime - timer;
-        maxTimeReached = true; 
-    }
 
-    if (secondsToAdd <= 0 && maxTimeReached) {
+    if (maxTimeReached || marathonOver) return;
+
+    let tiempoRestante = maxTime - totalTime;
+
+    if (tiempoRestante <= 0) {
+        maxTimeReached = true;
         return;
     }
-    // Extracción de la lógica de animación a una función separada
+
+    if (secondsToAdd > tiempoRestante) {
+        secondsToAdd = tiempoRestante;
+        maxTimeReached = true;
+    }
+
+    totalTime += secondsToAdd;
+    timer += secondsToAdd;
+
     animateTimeAddition(secondsToAdd);
 
-    timer += secondsToAdd;
-    console.log(`Tiempo añadido: ${secondsToAdd} segundos. Total: ${timer}`);
+    console.log(`⏱️ Tiempo añadido: ${secondsToAdd}s | ⌛ Total acumulado: ${totalTime}s / ${maxTime}s | 🕒 Timer visual: ${timer}s`);
 }
 
-// Función para manejar la animación de adición de tiempo
 function animateTimeAddition(seconds) {
     const tiempoAgregado = document.createElement('span');
     tiempoAgregado.className = "tiempoAgregado";
@@ -285,7 +372,6 @@ function startCountdown() {
     }, 1000);
 }
 
-// Función para actualizar la visualización del temporizador
 function updateCountdownDisplay(timeInSeconds) {
     let horas = Math.floor(timeInSeconds / 3600);
     let minutos = Math.floor((timeInSeconds % 3600) / 60);
@@ -296,7 +382,7 @@ function updateCountdownDisplay(timeInSeconds) {
     segundos = segundos < 10 ? "0" + segundos : segundos;
 
     countdownDisplay.textContent = `${horas}:${minutos}:${segundos}`;
-    temp = countdownDisplay.textContent; // Considerar si 'temp' es realmente necesario
+    temp = countdownDisplay.textContent;
     console.log(temp);
 }
 
@@ -463,10 +549,9 @@ function comboTimeAnimation() {
     //REINICIAMOS LA PINCHE ESCALA DEL DIV PORQUE SI NO, NO SE VERA LA MADRE
     gsap.set(comboTimer, { scaleX: 1 });
 
-    //AL CHILE ESTA PARTE SE LA PREGUNTE A GEMINI XD
     requestAnimationFrame(() => {
         gsap.to(comboTimer, {
-            duration: 60, //ESTE VALOR SE OBTIENE DEL URI
+            duration: 60, //ESTE VALOR SE OBTIENE DEL URI (no lo integre lol)
             scaleX: 0,
             ease: 'linear'
         });
@@ -670,3 +755,8 @@ function getPausedTime() {
 //     "systemMessage": "userName is gifting 5 Tier 1 Subs to OtherUser's community! They've gifted a total of 5 in the channel!",
 //     "isTest": false
 //   }
+
+// const data = {
+//   "amount": "6.00",
+//   "currency": "USD",
+// }
