@@ -6,15 +6,9 @@ import {
     handleCommand
 } from './eventsHandler.js';
 
-let client = null;
-
 export function initializeStreamerbotClient() {
-    if (typeof StreamerbotClient === 'undefined') {
-        console.error("StreamerbotClient no está definido. Asegúrate de que el script de Streamerbot esté cargado.");
-        return;
-    }
 
-    client = new StreamerbotClient({
+    const client = new StreamerbotClient({
         host: StreamerbotAddress,
         port: StreamerbotPort,
         onConnect: (data) => {
