@@ -11,7 +11,6 @@ import { iniciarContadorCheers, getComboState } from './comboMode.js';
 
 function obtenerTiers(subTier, isPrime = false) {
     const tier = isPrime ? 0 : parseInt(subTier, 10);
-
     switch (tier) {
         case 0:
             return tier0;
@@ -64,7 +63,7 @@ export function AddTimeWithCheers(data) {
     let valorCalculado = (bits / minBits) * bitsTime;
     valorCalculado = Math.round(valorCalculado * 60);
     AddTime(valorCalculado);
-    iniciarContadorCheers();
+    //iniciarContadorCheers();
 }
 
 export function AddTimeWithGiftSub(data) {
