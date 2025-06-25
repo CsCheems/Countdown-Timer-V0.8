@@ -5,7 +5,6 @@ import {
 import {
     AddTime, getTimerState, PauseTimer, ResumeTimer, StartTimer, ResetTimer, addToTimer
 } from './timeHandler.js';
-import { iniciarContadorCheers, getComboState } from './comboMode.js';
 
 // HELPER PARA MANEJAR TIEMPO PAUSADO
 

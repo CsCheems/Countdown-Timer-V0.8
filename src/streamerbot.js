@@ -8,7 +8,7 @@ import {
 
 export function initializeStreamerbotClient() {
 
-    const client = new StreamerbotClient({
+    const client = new window.StreamerbotClient({
         host: StreamerbotAddress,
         port: StreamerbotPort,
         onConnect: (data) => {
@@ -19,6 +19,8 @@ export function initializeStreamerbotClient() {
             setConnectionStatus(false);
         }
     });
+
+    window.client = client;
 
     // COMMAND EVENTS
     client.on("Command.Triggered", (response) => {
