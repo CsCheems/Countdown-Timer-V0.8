@@ -119,44 +119,44 @@ export function AddTimeWithGiftBomb(data) {
     AddTime(valorCalculado);
 }
 
-export function addTimeKofiDonation(data) {
-    console.log(data);
-    const { isMarathonOver } = getTimerState();
-    if (isMarathonOver) return;
+// export function addTimeKofiDonation(data) {
+//     console.log(data);
+//     const { isMarathonOver } = getTimerState();
+//     if (isMarathonOver) return;
 
-    const cantidad = parseFloat(data.amount);
-    let valorCalculado = 0;
+//     const cantidad = parseFloat(data.amount);
+//     let valorCalculado = 0;
 
-    const tiersOrdenados = [...donationTiers].sort((a, b) => b.cantidad - a.cantidad);
+//     const tiersOrdenados = [...donationTiers].sort((a, b) => b.cantidad - a.cantidad);
 
-    for (const tier of tiersOrdenados) {
-        if (cantidad >= tier.cantidad) {
-            valorCalculado = tier.tiempo;
-            break;
-        }
-    }
+//     for (const tier of tiersOrdenados) {
+//         if (cantidad >= tier.cantidad) {
+//             valorCalculado = tier.tiempo;
+//             break;
+//         }
+//     }
 
-    if (valorCalculado > 0) {
-        AddTime(valorCalculado);
-    } else {
-        return;
-    }
-}
+//     if (valorCalculado > 0) {
+//         AddTime(valorCalculado);
+//     } else {
+//         return;
+//     }
+// }
 
-export function addTimeKofiSubscription(data) {
-    console.log(data);
-    //PENDIENTE
-}
+// export function addTimeKofiSubscription(data) {
+//     console.log(data);
+//     //PENDIENTE
+// }
 
-export function addTimeKofiResubscription(data) {
-    console.log(data);
-    //PENDIENTE
-}
+// export function addTimeKofiResubscription(data) {
+//     console.log(data);
+//     //PENDIENTE
+// }
 
-export function addTimeKofiShopOrder(data) {
-    console.log(data);
-    //PENDIENTE
-}
+// export function addTimeKofiShopOrder(data) {
+//     console.log(data);
+//     //PENDIENTE
+// }
 
 //HELPERS//
 export function handleCommand(data) {
