@@ -255,38 +255,38 @@ function AddTimeWithGiftBomb(data){
     AddTime(getAdjustedTime(valorCalculado));
 }
 
-function addTimeKofiDonation(data){
-    console.log(data);
-    const cantidad = parseFloat(data.amount);
-    let valorCalculado = 0;
+// function addTimeKofiDonation(data){
+//     console.log(data);
+//     const cantidad = parseFloat(data.amount);
+//     let valorCalculado = 0;
 
-    const tiersOrdenados = donationTiers.sort((a, b) => b.cantidad - a.cantidad);
+//     const tiersOrdenados = donationTiers.sort((a, b) => b.cantidad - a.cantidad);
 
-    for(const tier of tiersOrdenados){
-        if(cantidad >= tier.cantidad){
-            valorCalculado = tier.tiempo;
-            break;
-        }
-    }
+//     for(const tier of tiersOrdenados){
+//         if(cantidad >= tier.cantidad){
+//             valorCalculado = tier.tiempo;
+//             break;
+//         }
+//     }
 
-    if(valorCalculado > 0){
-        AddTime(getAdjustedTime(valorCalculado));
-    }else{
-        return;
-    }
-}
+//     if(valorCalculado > 0){
+//         AddTime(getAdjustedTime(valorCalculado));
+//     }else{
+//         return;
+//     }
+// }
 
-function addTimeKofiSubscription(data){
-    console.log(data);
-}
+// function addTimeKofiSubscription(data){
+//     console.log(data);
+// }
 
-function addTimeKofiResubscription(data){
-    console.log(data);
-}
+// function addTimeKofiResubscription(data){
+//     console.log(data);
+// }
 
-function addTimeKofiShopOrder(data){
-    console.log(data);
-}
+// function addTimeKofiShopOrder(data){
+//     console.log(data);
+// }
 
 
 //AGREGAR TIEMPO//
