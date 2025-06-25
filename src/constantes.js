@@ -1,7 +1,9 @@
 //IMPORTAR DE UTILS
-import { GetIntParam, obtenerBooleanos, urlParameters } from "./utils.js";
+import { GetIntParam, obtenerBooleanos } from "./utils.js";
 
 //WEBSOCKET
+const querystring = window.location.search;
+export const urlParameters = new URLSearchParams(querystring);
 export const StreamerbotPort = urlParameters.get("port") || "8080";
 export const StreamerbotAddress = urlParameters.get("address") || "127.0.0.1";
 
