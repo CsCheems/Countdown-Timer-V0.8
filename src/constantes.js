@@ -19,17 +19,17 @@ export const minBits = GetIntParam("minBits", 100);
 export const bitsTime = GetIntParam("bitsTime", 13);
 
 //KOFI
-export const dono1 = GetIntParam("dono1", 3);
-export const dono2 = GetIntParam("dono2", 6);
-export const dono3 = GetIntParam("dono3", 9);
-export const dono1Time = GetIntParam("dono1Time", 20);
-export const dono2Time = GetIntParam("dono2Time", 30);
-export const dono3Time = GetIntParam("dono3Time", 40);
-export const donationTiers = [
-    {cantidad: dono1, tiempo: dono1Time * 60},
-    {cantidad: dono2, tiempo: dono2Time * 60},
-    {cantidad: dono3, tiempo: dono3Time * 60}
-]
+// export const dono1 = GetIntParam("dono1", 3);
+// export const dono2 = GetIntParam("dono2", 6);
+// export const dono3 = GetIntParam("dono3", 9);
+// export const dono1Time = GetIntParam("dono1Time", 20);
+// export const dono2Time = GetIntParam("dono2Time", 30);
+// export const dono3Time = GetIntParam("dono3Time", 40);
+// export const donationTiers = [
+//     {cantidad: dono1, tiempo: dono1Time * 60},
+//     {cantidad: dono2, tiempo: dono2Time * 60},
+//     {cantidad: dono3, tiempo: dono3Time * 60}
+// ]
 
 //VISUAL
 export const colorFondo = urlParameters.get("fondoColor") || "#000000";

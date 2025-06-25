@@ -1,6 +1,6 @@
 import {
     tier0, tier1, tier2, tier3, minBits, bitsTime,
-    donationTiers, processedGiftBombIds
+    processedGiftBombIds
 } from './constantes.js';
 import {
     AddTime, getTimerState, PauseTimer, ResumeTimer, StartTimer, ResetTimer, addToTimer
