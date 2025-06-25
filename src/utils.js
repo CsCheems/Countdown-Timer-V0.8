@@ -7,6 +7,9 @@ export const hexToRgb = (hex) => {
   return { r, g, b };
 };
 
+const querystring = window.location.search;
+export const urlParameters = new URLSearchParams(querystring);
+
 export function obtenerBooleanos(paramName, defaultValue) {
     const param = urlParameters.get(paramName);
     if (param === null) {
