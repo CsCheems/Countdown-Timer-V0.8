@@ -1,7 +1,7 @@
 import { hexToRgb } from './src/utils.js';
 import { colorFondo, opacity, colorFuente, fuenteLetra } from './src/constantes.js';
-import { initializeTimer } from './src/timeHandler.js';
-import { initializeStreamerbotClient } from './src/streamerbot.js';
+import { initializeTimer, startCountdown } from './src/timeHandler.js';
+import { connectws } from './src/streamerbot.js';
 
 // APLICAR ESTILOS
 const mainContainer = document.getElementById("main-container");
@@ -31,6 +31,6 @@ document.addEventListener("DOMContentLoaded", () => {
   } else {
     console.error("Elemento con ID 'timer' no encontrado.");
   }
-
-  initializeStreamerbotClient();
+  connectws();
+  startCountdown();
 });
