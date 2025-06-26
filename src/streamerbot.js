@@ -2,75 +2,91 @@ import { StreamerbotAddress, StreamerbotPort } from './constantes.js';
 import {
     RewardRedemption, AddTimeWithCheers, AddTimeWithSub, AddTimeWithReSub,
     AddTimeWithGiftSub, AddTimeWithGiftBomb, addTimeKofiDonation,
-    addTimeKofiSubscription, addTimeKofiResubscription, addTimeKofiShopOrder,
+    // addTimeKofiSubscription, addTimeKofiResubscription, addTimeKofiShopOrder,
     handleCommand
 } from './eventsHandler.js';
 
-export function initializeStreamerbotClient() {
+let ws = null;
 
-    const client = new window.StreamerbotClient({
-        host: StreamerbotAddress,
-        port: StreamerbotPort,
-        onConnect: (data) => {
-            console.log(data);
-            setConnectionStatus(true);
-        },
-        onDisconnect: () => {
-            setConnectionStatus(false);
-        }
-    });
+let sbDebugMode = true;
 
-    window.client = client;
+export function connectws() {
+	if (!("WebSocket" in window)) return;
 
-    // COMMAND EVENTS
-    client.on("Command.Triggered", (response) => {
-        handleCommand(response.data);
-    });
+	ws = new WebSocket(`ws://${StreamerbotAddress}:${StreamerbotPort}/`);
 
-    client.on("Twitch.RewardRedemption", (response) => {
-        RewardRedemption(response.data);
-    });
+	ws.onclose = () => {
+		setConnectionStatus(false);
+		setTimeout(connectws, 5000);
+	};
 
-    // TWITCH EVENTS
-    client.on("Twitch.Cheer", (response) => {
-        AddTimeWithCheers(response.data);
-    });
+	ws.onopen = () => {
+		setConnectionStatus(true);
+		console.log("✅ WebSocket conectado");
 
-    client.on("Twitch.Sub", (response) => {
-        AddTimeWithSub(response.data);
-    });
+		ws.send(JSON.stringify({
+			request: "Subscribe",
+			id: "subscribe-all-events",
+			events: {
+				twitch: [
+					// "Sub",
+					// "ReSub",
+					// "GiftSub",
+					// "GiftBomb",
+					// "Cheer",
+					"RewardRedemption"
+				],
+				// kofi: [
+				// 	"Donation",
+				// 	"Subscription",
+				// 	"Resubscription",
+				// 	"ShopOrder"
+				// ],
+				commands: ["Triggered"]
+			}
+		}));
+	};
 
-    client.on("Twitch.ReSub", (response) => {
-        AddTimeWithReSub(response.data);
-    });
+	ws.onmessage = (event) => {
+		const wsdata = JSON.parse(event.data);
+		if (!wsdata?.event?.type) return;
 
-    client.on("Twitch.GiftSub", (response) => {
-        AddTimeWithGiftSub(response.data);
-    });
+		if (sbDebugMode) {
+			console.log("🟡 Evento recibido:", wsdata.event.source, wsdata.event.type, wsdata.data);
+		}
 
-    client.on("Twitch.GiftBomb", (response) => {
-        AddTimeWithGiftBomb(response.data);
-    });
+		const { source, type } = wsdata.event;
+		const data = wsdata.data;
 
-    // KOFI EVENTS
-    client.on("Kofi.Donation", (response) => {
-        addTimeKofiDonation(response.data);
-    });
+		switch (source) {
+			case 'Twitch':
+				switch (type) {
+					// case 'Sub': AddTimeWithSub(data); break;
+					// case 'ReSub': AddTimeWithReSub(data); break;
+					// case 'GiftSub': AddTimeWithGiftSub(data); break;
+					// case 'GiftBomb': AddTimeWithGiftBomb(data); break;
+					// case 'Cheer': AddTimeWithCheers(data); break;
+					case 'RewardRedemption': RewardRedemption(data); break;
+				}
+				break;
 
-    client.on("Kofi.Subscription", (response) => {
-        addTimeKofiSubscription(response.data);
-    });
+			// case 'Kofi':
+			// 	switch (type) {
+			// 		case 'Donation': addTimeKofiDonation(data); break;
+			// 		case 'Subscription': addTimeKofiSubscription(data); break;
+			// 		case 'Resubscription': addTimeKofiResubscription(data); break;
+			// 		case 'ShopOrder': addTimeKofiShopOrder(data); break;
+			// 	}
+			// 	break;
 
-    client.on("Kofi.Resubscription", (response) => {
-        addTimeKofiResubscription(response.data);
-    });
-
-    client.on("Kofi.ShopOrder", (response) => {
-        addTimeKofiShopOrder(response.data);
-    });
+			case 'Command':
+				if (type === 'Triggered') handleCommand(data);
+				break;
+		}
+	};
 }
 
-//STREAMERBOT STATUS FUNCTION//
+
 function setConnectionStatus(connected) {
     let statusContainer = document.getElementById("status-container");
     if (statusContainer) {
