@@ -33,7 +33,7 @@ export function connectws() {
 					// "ReSub",
 					// "GiftSub",
 					// "GiftBomb",
-					// "Cheer",
+					"Cheer",
 					"RewardRedemption"
 				],
 				// kofi: [
@@ -65,7 +65,7 @@ export function connectws() {
 					// case 'ReSub': AddTimeWithReSub(data); break;
 					// case 'GiftSub': AddTimeWithGiftSub(data); break;
 					// case 'GiftBomb': AddTimeWithGiftBomb(data); break;
-					// case 'Cheer': AddTimeWithCheers(data); break;
+					case 'Cheer': AddTimeWithCheers(data); break;
 					case 'RewardRedemption': RewardRedemption(data); break;
 				}
 				break;
