@@ -1,45 +1,13 @@
 import {
-    tier0, tier1, tier2, tier3, minBits, bitsTime,
-    donationTiers, processedGiftBombIds
+    tier0, tier1, tier2, tier3, minBits, bitsTime, donationTiers,
+    processedGiftBombIds 
 } from './constantes.js';
+
 import {
     AddTime, getTimerState, PauseTimer, ResumeTimer, StartTimer, ResetTimer, addToTimer
 } from './timeHandler.js';
 
-// HELPER PARA MANEJAR TIEMPO PAUSADO
-
-function obtenerTiers(subTier, isPrime = false) {
-    const tier = isPrime ? 0 : parseInt(subTier, 10);
-    switch (tier) {
-        case 0:
-            return tier0;
-        case 1000:
-            return tier1;
-        case 2000:
-            return tier2;
-        case 3000:
-            return tier3;
-        default:
-            console.warn(`subTier desconocido (${subTier}), se usará tier0 como valor por defecto.`);
-            return tier0;
-    }
-}
-
-function obtenerGiftBombTiers(sub_tier) {
-    const tier = parseInt(sub_tier);
-    switch (tier) {
-        case 1000:
-            return tier1;
-        case 2000:
-            return tier2;
-        case 3000:
-            return tier3;
-        default:
-            console.warn(`subTier desconocido (${sub_tier}), se usará tier1 como valor por defecto.`);
-            return tier1;
-    }
-}
-
+//FUNCIONES
 export function RewardRedemption(data) {
     console.log(data);
     const { isMarathonOver } = getTimerState();
@@ -158,7 +126,7 @@ export function addTimeKofiDonation(data) {
 //     //PENDIENTE
 // }
 
-//HELPERS//
+//HANDLER
 export function handleCommand(data) {
     console.log(data);
     const comando = data.name;
@@ -182,5 +150,38 @@ export function handleCommand(data) {
         default:
             console.warn('Comando no reconocido');
             break;
+    }
+}
+
+//HELPERS
+function obtenerTiers(subTier, isPrime = false) {
+    const tier = isPrime ? 0 : parseInt(subTier, 10);
+    switch (tier) {
+        case 0:
+            return tier0;
+        case 1000:
+            return tier1;
+        case 2000:
+            return tier2;
+        case 3000:
+            return tier3;
+        default:
+            console.warn(`subTier desconocido (${subTier}), se usará tier0 como valor por defecto.`);
+            return tier0;
+    }
+}
+
+function obtenerGiftBombTiers(sub_tier) {
+    const tier = parseInt(sub_tier);
+    switch (tier) {
+        case 1000:
+            return tier1;
+        case 2000:
+            return tier2;
+        case 3000:
+            return tier3;
+        default:
+            console.warn(`subTier desconocido (${sub_tier}), se usará tier1 como valor por defecto.`);
+            return tier1;
     }
 }

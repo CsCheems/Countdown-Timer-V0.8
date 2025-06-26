@@ -74,7 +74,6 @@ export function connectws() {
 					case 'RewardRedemption': RewardRedemption(data); break;
 				}
 				break;
-
 			case 'Kofi':
 				switch (type) {
 					case 'Donation': addTimeKofiDonation(data); break;
@@ -83,7 +82,6 @@ export function connectws() {
 			// 		case 'ShopOrder': addTimeKofiShopOrder(data); break;
 				}
 				break;
-
 			case 'Command':
 				if (type === 'Triggered') handleCommand(data);
 				break;
