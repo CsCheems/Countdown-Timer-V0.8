@@ -36,12 +36,12 @@ export function connectws() {
 					"Cheer",
 					"RewardRedemption"
 				],
-				// kofi: [
-				// 	"Donation",
+				kofi: [
+					"Donation"
 				// 	"Subscription",
 				// 	"Resubscription",
 				// 	"ShopOrder"
-				// ],
+				],
 				commands: ["Triggered"]
 			}
 		}));
