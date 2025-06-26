@@ -24,7 +24,7 @@ export function connectws() {
 		setConnectionStatus(true);
 		console.log("✅ WebSocket conectado");
 
-		ws.send(JSON.stringify({
+		const subscriptionPayload = {
 			request: "Subscribe",
 			id: "subscribe-all-events",
 			events: {
@@ -42,13 +42,18 @@ export function connectws() {
 				// 	"Resubscription",
 				// 	"ShopOrder"
 				],
-				commands: ["Triggered"]
+				command: ["Triggered"]
 			}
-		}));
+		};
+        console.log("Enviando suscripción:", subscriptionPayload.events);
+        ws.send(JSON.stringify(subscriptionPayload));
+        
 	};
 
 	ws.onmessage = (event) => {
+        
 		const wsdata = JSON.parse(event.data);
+        console.log("DATA: ",wsdata);
 		if (!wsdata?.event?.type) return;
 
 		if (sbDebugMode) {
