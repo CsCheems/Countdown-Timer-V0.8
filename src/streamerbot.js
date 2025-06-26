@@ -17,32 +17,31 @@ export function connectws() {
 
 	ws.onclose = () => {
 		setConnectionStatus(false);
-		setTimeout(connectws, 5000); // Intentar reconectar tras 5s
+		setTimeout(connectws, 5000);
 	};
 
 	ws.onopen = () => {
 		setConnectionStatus(true);
 		console.log("✅ WebSocket conectado");
 
-		// Suscribirse a eventos personalizados
 		ws.send(JSON.stringify({
 			request: "Subscribe",
 			id: "subscribe-all-events",
 			events: {
 				twitch: [
-					"Sub",
-					"ReSub",
-					"GiftSub",
-					"GiftBomb",
-					"Cheer",
+					// "Sub",
+					// "ReSub",
+					// "GiftSub",
+					// "GiftBomb",
+					// "Cheer",
 					"RewardRedemption"
 				],
-				kofi: [
-					"Donation",
-					"Subscription",
-					"Resubscription",
-					"ShopOrder"
-				],
+				// kofi: [
+				// 	"Donation",
+				// 	"Subscription",
+				// 	"Resubscription",
+				// 	"ShopOrder"
+				// ],
 				commands: ["Triggered"]
 			}
 		}));
@@ -62,23 +61,23 @@ export function connectws() {
 		switch (source) {
 			case 'Twitch':
 				switch (type) {
-					case 'Sub': AddTimeWithSub(data); break;
-					case 'ReSub': AddTimeWithReSub(data); break;
-					case 'GiftSub': AddTimeWithGiftSub(data); break;
-					case 'GiftBomb': AddTimeWithGiftBomb(data); break;
-					case 'Cheer': AddTimeWithCheers(data); break;
+					// case 'Sub': AddTimeWithSub(data); break;
+					// case 'ReSub': AddTimeWithReSub(data); break;
+					// case 'GiftSub': AddTimeWithGiftSub(data); break;
+					// case 'GiftBomb': AddTimeWithGiftBomb(data); break;
+					// case 'Cheer': AddTimeWithCheers(data); break;
 					case 'RewardRedemption': RewardRedemption(data); break;
 				}
 				break;
 
-			case 'Kofi':
-				switch (type) {
-					case 'Donation': addTimeKofiDonation(data); break;
-					case 'Subscription': addTimeKofiSubscription(data); break;
-					case 'Resubscription': addTimeKofiResubscription(data); break;
-					case 'ShopOrder': addTimeKofiShopOrder(data); break;
-				}
-				break;
+			// case 'Kofi':
+			// 	switch (type) {
+			// 		case 'Donation': addTimeKofiDonation(data); break;
+			// 		case 'Subscription': addTimeKofiSubscription(data); break;
+			// 		case 'Resubscription': addTimeKofiResubscription(data); break;
+			// 		case 'ShopOrder': addTimeKofiShopOrder(data); break;
+			// 	}
+			// 	break;
 
 			case 'Command':
 				if (type === 'Triggered') handleCommand(data);

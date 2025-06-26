@@ -1,7 +1,7 @@
-import { hexToRgb } from './src/utils.js';
-import { colorFondo, opacity, colorFuente, fuenteLetra } from './src/constantes.js';
-import { initializeTimer, startCountdown } from './src/timeHandler.js';
-import { connectws } from './src/streamerbot.js';
+import { hexToRgb } from './utils.js';
+import { colorFondo, opacity, colorFuente, fuenteLetra } from './constantes.js';
+import { initializeTimer, startCountdown } from './timeHandler.js';
+import { connectws } from './streamerbot.js';
 
 // APLICAR ESTILOS
 const mainContainer = document.getElementById("main-container");
