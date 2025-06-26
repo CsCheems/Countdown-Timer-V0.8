@@ -1,6 +1,6 @@
 import { hexToRgb } from './utils.js';
 import { colorFondo, opacity, colorFuente, fuenteLetra } from './constantes.js';
-import { initializeTimer } from './timeHandler.js';
+import { initializeTimer, startCountdown } from './timeHandler.js';
 import { connectws } from './streamerbot.js';
 
 // APLICAR ESTILOS
@@ -33,4 +33,5 @@ window.addEventListener("load", function () {
         console.error("Elemento con ID 'timer' no encontrado.");
     }
     connectws();
+    startCountdown();
 });
