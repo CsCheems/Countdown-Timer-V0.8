@@ -24,13 +24,13 @@ if (mainContainer) {
     }
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  const countdownDisplay = document.getElementById("timer");
-  if (countdownDisplay) {
-    initializeTimer(countdownDisplay);
-  } else {
-    console.error("Elemento con ID 'timer' no encontrado.");
-  }
-  connectws();
-  startCountdown();
+window.addEventListener("load", function () {
+    const countdownDisplay = document.getElementById("timer");
+    if (countdownDisplay) {
+        initializeTimer(countdownDisplay);
+    } else {
+        console.error("Elemento con ID 'timer' no encontrado.");
+    }
+    connectws();
+    //startCountdown();
 });

@@ -24,31 +24,36 @@ export function connectws() {
 		setConnectionStatus(true);
 		console.log("✅ WebSocket conectado");
 
-		ws.send(JSON.stringify({
+		const subscriptionPayload = {
 			request: "Subscribe",
 			id: "subscribe-all-events",
 			events: {
 				twitch: [
-					// "Sub",
-					// "ReSub",
-					// "GiftSub",
-					// "GiftBomb",
-					// "Cheer",
+					"Sub",
+					"ReSub",
+					"GiftSub",
+					"GiftBomb",
+					"Cheer",
 					"RewardRedemption"
 				],
-				// kofi: [
-				// 	"Donation",
+				kofi: [
+					"Donation"
 				// 	"Subscription",
 				// 	"Resubscription",
 				// 	"ShopOrder"
-				// ],
-				commands: ["Triggered"]
+				],
+				command: ["Triggered"]
 			}
-		}));
+		};
+        console.log("Enviando suscripción:", subscriptionPayload.events);
+        ws.send(JSON.stringify(subscriptionPayload));
+        
 	};
 
 	ws.onmessage = (event) => {
+        
 		const wsdata = JSON.parse(event.data);
+        console.log("DATA: ",wsdata);
 		if (!wsdata?.event?.type) return;
 
 		if (sbDebugMode) {
@@ -61,24 +66,22 @@ export function connectws() {
 		switch (source) {
 			case 'Twitch':
 				switch (type) {
-					// case 'Sub': AddTimeWithSub(data); break;
-					// case 'ReSub': AddTimeWithReSub(data); break;
-					// case 'GiftSub': AddTimeWithGiftSub(data); break;
-					// case 'GiftBomb': AddTimeWithGiftBomb(data); break;
-					// case 'Cheer': AddTimeWithCheers(data); break;
+					case 'Sub': AddTimeWithSub(data); break;
+					case 'ReSub': AddTimeWithReSub(data); break;
+					case 'GiftSub': AddTimeWithGiftSub(data); break;
+					case 'GiftBomb': AddTimeWithGiftBomb(data); break;
+					case 'Cheer': AddTimeWithCheers(data); break;
 					case 'RewardRedemption': RewardRedemption(data); break;
 				}
 				break;
-
-			// case 'Kofi':
-			// 	switch (type) {
-			// 		case 'Donation': addTimeKofiDonation(data); break;
+			case 'Kofi':
+				switch (type) {
+					case 'Donation': addTimeKofiDonation(data); break;
 			// 		case 'Subscription': addTimeKofiSubscription(data); break;
 			// 		case 'Resubscription': addTimeKofiResubscription(data); break;
 			// 		case 'ShopOrder': addTimeKofiShopOrder(data); break;
-			// 	}
-			// 	break;
-
+				}
+				break;
 			case 'Command':
 				if (type === 'Triggered') handleCommand(data);
 				break;
