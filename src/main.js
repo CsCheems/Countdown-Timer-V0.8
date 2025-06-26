@@ -33,5 +33,5 @@ window.addEventListener("load", function () {
         console.error("Elemento con ID 'timer' no encontrado.");
     }
     connectws();
-    startCountdown();
+    //startCountdown();
 });
