@@ -31,8 +31,8 @@ export function connectws() {
 				twitch: [
 					"Sub",
 					"ReSub",
-					// "GiftSub",
-					// "GiftBomb",
+					"GiftSub",
+					//"GiftBomb",
 					"Cheer",
 					"RewardRedemption"
 				],
@@ -68,8 +68,8 @@ export function connectws() {
 				switch (type) {
 					case 'Sub': AddTimeWithSub(data); break;
 					case 'ReSub': AddTimeWithReSub(data); break;
-					// case 'GiftSub': AddTimeWithGiftSub(data); break;
-					// case 'GiftBomb': AddTimeWithGiftBomb(data); break;
+					case 'GiftSub': AddTimeWithGiftSub(data); break;
+					//case 'GiftBomb': AddTimeWithGiftBomb(data); break;
 					case 'Cheer': AddTimeWithCheers(data); break;
 					case 'RewardRedemption': RewardRedemption(data); break;
 				}
