@@ -29,8 +29,8 @@ export function connectws() {
 			id: "subscribe-all-events",
 			events: {
 				twitch: [
-					// "Sub",
-					// "ReSub",
+					"Sub",
+					"ReSub",
 					// "GiftSub",
 					// "GiftBomb",
 					"Cheer",
@@ -66,8 +66,8 @@ export function connectws() {
 		switch (source) {
 			case 'Twitch':
 				switch (type) {
-					// case 'Sub': AddTimeWithSub(data); break;
-					// case 'ReSub': AddTimeWithReSub(data); break;
+					case 'Sub': AddTimeWithSub(data); break;
+					case 'ReSub': AddTimeWithReSub(data); break;
 					// case 'GiftSub': AddTimeWithGiftSub(data); break;
 					// case 'GiftBomb': AddTimeWithGiftBomb(data); break;
 					case 'Cheer': AddTimeWithCheers(data); break;
@@ -75,14 +75,14 @@ export function connectws() {
 				}
 				break;
 
-			// case 'Kofi':
-			// 	switch (type) {
-			// 		case 'Donation': addTimeKofiDonation(data); break;
+			case 'Kofi':
+				switch (type) {
+					case 'Donation': addTimeKofiDonation(data); break;
 			// 		case 'Subscription': addTimeKofiSubscription(data); break;
 			// 		case 'Resubscription': addTimeKofiResubscription(data); break;
 			// 		case 'ShopOrder': addTimeKofiShopOrder(data); break;
-			// 	}
-			// 	break;
+				}
+				break;
 
 			case 'Command':
 				if (type === 'Triggered') handleCommand(data);
