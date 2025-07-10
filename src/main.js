@@ -1,6 +1,6 @@
 import { hexToRgb } from './utils.js';
 import { colorFondo, opacity, colorFuente, fuenteLetra } from './constantes.js';
-import { initializeTimer, startCountdown } from './timeHandler.js';
+import { initializeTimer } from './timeHandler.js';
 import { connectws } from './streamerbot.js';
 
 // APLICAR ESTILOS
@@ -35,3 +35,5 @@ window.addEventListener("load", function () {
     connectws();
     //startCountdown();
 });
+
+

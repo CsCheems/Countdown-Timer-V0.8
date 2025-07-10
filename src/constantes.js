@@ -11,6 +11,7 @@ export const startingTime = GetIntParam("startingTime", 4800);
 export const maxTime = GetIntParam("maxTime", 7200);
 
 //TWITCH
+export const allowTwitch = obtenerBooleanos("allowTwitch", true);
 export const tier0 = GetIntParam("tier0", 17);
 export const tier1 = GetIntParam("tier1", 15);
 export const tier2 = GetIntParam("tier2", 20);
@@ -19,23 +20,32 @@ export const minBits = GetIntParam("minBits", 100);
 export const bitsTime = GetIntParam("bitsTime", 13);
 
 //KOFI
-export const dono1 = GetIntParam("dono1", 3);
-export const dono2 = GetIntParam("dono2", 6);
-export const dono3 = GetIntParam("dono3", 9);
+export const allowKofi = obtenerBooleanos("allowKofi", false);
+export const dono1 = GetIntParam("dono1", 5);
 export const dono1Time = GetIntParam("dono1Time", 20);
-export const dono2Time = GetIntParam("dono2Time", 30);
-export const dono3Time = GetIntParam("dono3Time", 40);
 export const donationTiers = [
     {cantidad: dono1, tiempo: dono1Time * 60},
-    {cantidad: dono2, tiempo: dono2Time * 60},
-    {cantidad: dono3, tiempo: dono3Time * 60}
 ]
+
+//STREAMLABS
+export const allowStreamlabs = obtenerBooleanos("allowStreamlabs", false);
+export const streamlabsDonation = GetIntParam("streamlabsDonation", 5);
+export const streamlabsTime = GetIntParam("streamlabsTime", 5);
+
+
+//STREAMELEMENTS
+export const allowStreamElements = obtenerBooleanos("allowStreamElements", false);
+export const streamElementsTip = GetIntParam("streamElementsTip", 5);
+export const streamElementsTime = GetIntParam("streamElementsTime", 20);
+
+//YOUTUBE
+export const allowYoutube = obtenerBooleanos("allowYoutube", false);
 
 //VISUAL
 export const colorFondo = urlParameters.get("fondoColor") || "#000000";
 export const opacity = urlParameters.get("opacidad") || 0.75;
 export const colorFuente = urlParameters.get("colorFuente") || "#ffffff";
-export const fuenteLetra = urlParameters.get("fuenteLetra") || "Arial";
+export const fuenteLetra = urlParameters.get("fuenteLetra") || "Consolas";
 
 //MISC
 export const maxIncrementTime = 5;
