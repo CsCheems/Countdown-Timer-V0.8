@@ -40,11 +40,23 @@ export function connectws() {
 				],
 				kofi: [
 					"Donation"
-				// 	"Subscription",
-				// 	"Resubscription",
-				// 	"ShopOrder"
 				],
-				command: ["Triggered"]
+				streamlabs: [
+					"Donation"
+				],
+				streamelements: [
+					"Tip"
+				],
+				youtube: [
+					"SuperChat",
+					"SuperSticker",
+					"NewSponsor",
+					"MembershipGift",
+					"GiftMembershipReceived"
+				],
+				command: [
+					"Triggered"
+				]
 			}
 		};
         console.log("Enviando suscripción:", subscriptionPayload.events);

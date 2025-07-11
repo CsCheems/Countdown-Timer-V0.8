@@ -7,8 +7,8 @@ export const StreamerbotAddress = urlParameters.get("address") || "127.0.0.1";
 
 //CONSTANTES
 export const comboMode = obtenerBooleanos("comboMode", false);
-export const startingTime = GetIntParam("startingTime", 18000);
-export const maxTime = GetIntParam("maxTime", 86400);
+export const startingTime = GetIntParam("startingTime", 21600);
+export const maxTime = GetIntParam("maxTime", 43200);
 
 //TWITCH
 export const allowTwitch = obtenerBooleanos("allowTwitch", true);
@@ -24,7 +24,7 @@ export const allowKofi = obtenerBooleanos("allowKofi", false);
 export const dono1 = GetIntParam("dono1", 5);
 export const dono1Time = GetIntParam("dono1Time", 20);
 export const donationTiers = [
-    {cantidad: dono1, tiempo: dono1Time * 60},
+    {cantidad: dono1, tiempo: dono1Time},
 ]
 
 //STREAMLABS
@@ -51,6 +51,7 @@ export const fuenteLetra = urlParameters.get("fuenteLetra") || "Consolas";
 export const maxIncrementTime = 5;
 export const minToActivateComboBits = 3;
 export const processedGiftBombIds = new Set();
+export const endMessage = urlParameters.get("endMessage") || "Time's up!"
 
 //VARIABLES DE ESTADO
 export let timer = startingTime;
