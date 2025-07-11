@@ -7,17 +7,17 @@ export const StreamerbotAddress = urlParameters.get("address") || "127.0.0.1";
 
 //CONSTANTES
 export const comboMode = obtenerBooleanos("comboMode", false);
-export const startingTime = GetIntParam("startingTime", 4800);
-export const maxTime = GetIntParam("maxTime", 7200);
+export const startingTime = GetIntParam("startingTime", 18000);
+export const maxTime = GetIntParam("maxTime", 86400);
 
 //TWITCH
 export const allowTwitch = obtenerBooleanos("allowTwitch", true);
 export const tier0 = GetIntParam("tier0", 17);
 export const tier1 = GetIntParam("tier1", 15);
-export const tier2 = GetIntParam("tier2", 20);
-export const tier3 = GetIntParam("tier3", 25);
+export const tier2 = GetIntParam("tier2", 22);
+export const tier3 = GetIntParam("tier3", 28);
 export const minBits = GetIntParam("minBits", 100);
-export const bitsTime = GetIntParam("bitsTime", 13);
+export const bitsTime = GetIntParam("bitsTime", 15);
 
 //KOFI
 export const allowKofi = obtenerBooleanos("allowKofi", false);
@@ -43,7 +43,7 @@ export const allowYoutube = obtenerBooleanos("allowYoutube", false);
 
 //VISUAL
 export const colorFondo = urlParameters.get("fondoColor") || "#000000";
-export const opacity = urlParameters.get("opacidad") || 0.75;
+export const opacity = urlParameters.get("opacidad") || 0.50;
 export const colorFuente = urlParameters.get("colorFuente") || "#ffffff";
 export const fuenteLetra = urlParameters.get("fuenteLetra") || "Consolas";
 

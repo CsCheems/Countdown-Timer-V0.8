@@ -60,38 +60,31 @@ function animateTimeAddition(seconds) {
     tiempoAgregado.style.color = "#00F700";
     tiempoAgregado.style.fontSize = "15px";
     tiempoAgregado.style.fontFamily = "Cal Sans";
-    tiempoAgregado.style.opacity = "0";
+    tiempoAgregado.opacity = "0";
     tiempoAgregado.innerHTML = `+${seconds}`;
     tiempoAgregado.style.position = "absolute";
     tiempoAgregado.style.transform = "translate(-40%, -140%)";
     tiempoAgregado.style.transition = "opacity 1s ease-in";
     tiempoAgregado.style.right = "10px";
     const timeWrapper = document.getElementById('time-wrapper');
-    if (timeWrapper) {
-        timeWrapper.appendChild(tiempoAgregado);
+    timeWrapper.appendChild(tiempoAgregado);
 
-        if (typeof gsap !== 'undefined') {
-            gsap.to(tiempoAgregado, {
-                opacity: 1,
-                duration: 0.6,
-                ease: "power2.out",
-                y: -55
-            });
+    gsap.to(tiempoAgregado, {
+        opacity: 1,
+        duration:0.6,
+        ease: "power2.out",  
+        y: -55 
+    });
 
-            gsap.to(tiempoAgregado, {
-                opacity: 0,
-                duration: 0.6,
-                ease: "power2.in",
-                delay: 1.4
-            });
-        }
+    gsap.to(tiempoAgregado, {
+        opacity: 0,
+        duration:0.6,
+        ease: "power2.in",  
+    });
 
-        setTimeout(() => {
-            if (timeWrapper.contains(tiempoAgregado)) {
-                timeWrapper.removeChild(tiempoAgregado);
-            }
-        }, 2000);
-    }
+    setTimeout(() => {
+        timeWrapper.removeChild(tiempoAgregado);
+    }, 2000);
 }
 
 //COUNTDOWN TIMER//

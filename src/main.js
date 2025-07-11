@@ -24,7 +24,6 @@ if (mainContainer) {
     }
 }
 
-
 window.addEventListener("load", function () {
     const countdownDisplay = document.getElementById("timer");
     if (countdownDisplay) {
