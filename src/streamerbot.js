@@ -36,7 +36,7 @@ export function connectws() {
 					"GiftSub",
 					"GiftBomb",
 					"Cheer",
-					"RewardRedemption"
+					//"RewardRedemption"
 				],
 				kofi: [
 					"Donation"
@@ -85,7 +85,7 @@ export function connectws() {
 					case 'GiftSub': AddTimeWithGiftSub(data); break;
 					case 'GiftBomb': AddTimeWithGiftBomb(data); break;
 					case 'Cheer': AddTimeWithCheers(data); break;
-					case 'RewardRedemption': RewardRedemption(data); break;
+					//case 'RewardRedemption': RewardRedemption(data); break;
 				}
 				break;
 			case 'Youtube':
