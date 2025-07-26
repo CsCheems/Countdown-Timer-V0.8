@@ -1,6 +1,8 @@
 import {
-    tier0, tier1, tier2, tier3, minBits, bitsTime, donationTiers,
-    processedGiftBombIds 
+    allowTwitch, allowYoutube, allowKofi, allowStreamElements, allowStreamlabs,
+    tier0, tier1, tier2, tier3, minBits, bitsTime,
+    donationTiers, processedGiftBombIds, streamlabsDonation, streamlabsTime,
+    streamElementsTip, streamElementsTime
 } from './constantes.js';
 
 import {
@@ -125,6 +127,43 @@ export function addTimeKofiDonation(data) {
 //     console.log(data);
 //     //PENDIENTE
 // }
+
+//STREAMELEMENTS
+export function addTimeStreamElementsTip(data){
+    console.log(data);
+}
+
+//STREAMLABS
+export function addTimeStreamlabsDonation(data){
+    console.log(data);
+    const cantidad = data.amount;
+
+}
+
+//YOUTUBE
+export function addTimeMemberMileStone(data){
+    console.log(data);
+}
+
+export function addTimeGiftMembershipReceived(data){
+    console.log(data);
+}
+
+export function addTimeMembershipGift(data){
+    console.log(data);
+}
+
+export function addTimeNewSponsor(data) {
+    console.log(data);
+}
+
+export function addTimeSuperchat(data) {
+    console.log(data);
+}
+
+export function addTimeSuperSticker(data) {
+    console.log(data);
+}
 
 //HANDLER
 export function handleCommand(data) {

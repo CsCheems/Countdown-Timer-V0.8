@@ -3,7 +3,9 @@ import {
     RewardRedemption, AddTimeWithCheers, AddTimeWithSub, AddTimeWithReSub,
     AddTimeWithGiftSub, AddTimeWithGiftBomb, addTimeKofiDonation,
     // addTimeKofiSubscription, addTimeKofiResubscription, addTimeKofiShopOrder,
-    handleCommand
+	addTimeSuperchat, addTimeSuperSticker, addTimeMemberMileStone, addTimeNewSponsor,
+	addTimeMembershipGift, addTimeGiftMembershipReceived, addTimeStreamElementsTip, 
+    addTimeStreamlabsDonation, handleCommand
 } from './eventsHandler.js';
 
 let ws = null;
@@ -34,15 +36,27 @@ export function connectws() {
 					"GiftSub",
 					"GiftBomb",
 					"Cheer",
-					"RewardRedemption"
+					//"RewardRedemption"
 				],
 				kofi: [
 					"Donation"
-				// 	"Subscription",
-				// 	"Resubscription",
-				// 	"ShopOrder"
 				],
-				command: ["Triggered"]
+				streamlabs: [
+					"Donation"
+				],
+				streamelements: [
+					"Tip"
+				],
+				youtube: [
+					"SuperChat",
+					"SuperSticker",
+					"NewSponsor",
+					"MembershipGift",
+					"GiftMembershipReceived"
+				],
+				command: [
+					"Triggered"
+				]
 			}
 		};
         console.log("Enviando suscripción:", subscriptionPayload.events);
@@ -71,20 +85,30 @@ export function connectws() {
 					case 'GiftSub': AddTimeWithGiftSub(data); break;
 					case 'GiftBomb': AddTimeWithGiftBomb(data); break;
 					case 'Cheer': AddTimeWithCheers(data); break;
-					case 'RewardRedemption': RewardRedemption(data); break;
+					//case 'RewardRedemption': RewardRedemption(data); break;
 				}
 				break;
-			case 'Kofi':
-				switch (type) {
-					case 'Donation': addTimeKofiDonation(data); break;
-			// 		case 'Subscription': addTimeKofiSubscription(data); break;
-			// 		case 'Resubscription': addTimeKofiResubscription(data); break;
-			// 		case 'ShopOrder': addTimeKofiShopOrder(data); break;
+			case 'Youtube':
+				switch (type){
+					case 'SuperChat': addTimeSuperchat(data); break;
+					case 'SuperSticker': addTimeSuperSticker(data); break;
+					case 'MemberMileStone': addTimeMemberMileStone(data); break;
+					case 'NewSponsor': addTimeNewSponsor(data); break;
+					case 'MembershipGift': addTimeMembershipGift(data); break;
+					case 'GiftMembershipReceived': addTimeGiftMembershipReceived(data); break;
 				}
+			case 'Kofi':
+				if(type === 'Donation') addTimeKofiDonation(data); 
+				break;
+			case 'StreamElements':
+				if (type === 'Tip') addTimeStreamElementsTip(data); 
+				break;
+			case 'Streamlabs':
+				if (type === 'Donation') addTimeStreamlabsDonation(data); 
 				break;
 			case 'Command':
-				if (type === 'Triggered') handleCommand(data);
-				break;
+				if (type === 'Triggered') handleCommand(data); 
+				break;	
 		}
 	};
 }

@@ -1,5 +1,5 @@
 //IMPORTS DE UTILS Y CONSTANTS
-import { startingTime, maxTime } from './constantes.js';
+import { startingTime, maxTime, endMessage } from './constantes.js';
 import { getPausedTime } from './utils.js';
 
 // VARIABLES DE ESTADO
@@ -32,7 +32,9 @@ function getAdjustedTime(calculatedTime) {
 export function AddTime(secondsToAdd) {
     secondsToAdd = Math.round(secondsToAdd);
 
-    if (isMaxTimeReached || isMarathonOver) return;
+    if (isMaxTimeReached || isMarathonOver) {
+        return;
+    }
 
     let tiempoRestante = maxTime - currentTotalTime;
 
@@ -96,7 +98,8 @@ export function startCountdown() {
             isMarathonOver = true;
             clearInterval(currentIntervalId);
             if (countdownDisplayElement) {
-                countdownDisplayElement.textContent = "¡Se acabó!";
+                countdownDisplayElement.textContent = endMessage; 
+                animacionTermino();
             }
             return;
         }
@@ -176,3 +179,16 @@ export const getTimerState = () => ({
     isMaxTimeReached
 });
 
+//ANIMACION COLOR
+function animacionTermino() {
+    const duracionTotal = 60; 
+    const duracionCiclo = 1;
+    const repeticiones = duracionTotal / duracionCiclo;
+    gsap.to(countdownDisplayElement, {
+        color: "red",
+        duration: duracionCiclo / 2,
+        repeat: repeticiones - 1,
+        yoyo: true,
+        ease: "none"
+    });
+}
