@@ -2,7 +2,6 @@ import { StreamerbotAddress, StreamerbotPort } from './constantes.js';
 import {
     RewardRedemption, AddTimeWithCheers, AddTimeWithSub, AddTimeWithReSub,
     AddTimeWithGiftSub, AddTimeWithGiftBomb, addTimeKofiDonation,
-    // addTimeKofiSubscription, addTimeKofiResubscription, addTimeKofiShopOrder,
 	addTimeSuperchat, addTimeSuperSticker, addTimeMemberMileStone, addTimeNewSponsor,
 	addTimeMembershipGift, addTimeGiftMembershipReceived, addTimeStreamElementsTip, 
     addTimeStreamlabsDonation, handleCommand
