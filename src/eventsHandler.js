@@ -24,6 +24,7 @@ export function RewardRedemption(data) {
 }
 
 export function AddTimeWithCheers(data) {
+    if(!allowTwitch) return;
     console.log("Cheers: ", data);
     const { isMarathonOver } = getTimerState();
     if (isMarathonOver) return;
@@ -32,10 +33,10 @@ export function AddTimeWithCheers(data) {
     let valorCalculado = (bits / minBits) * bitsTime;
     valorCalculado = Math.round(valorCalculado * 60);
     AddTime(valorCalculado);
-    //iniciarContadorCheers();
 }
 
 export function AddTimeWithGiftSub(data) {
+    if(!allowTwitch) return;
     console.log("Gift Sub: ", data);
     const { isMarathonOver } = getTimerState();
     if (isMarathonOver) return;
@@ -51,6 +52,7 @@ export function AddTimeWithGiftSub(data) {
 }
 
 export function AddTimeWithSub(data) {
+    if(!allowTwitch) return;
     console.log("Sub: ", data);
     const { isMarathonOver } = getTimerState();
     if (isMarathonOver) return;
@@ -62,6 +64,7 @@ export function AddTimeWithSub(data) {
 }
 
 export function AddTimeWithReSub(data) {
+    if(!allowTwitch) return;
     console.log("ReSub: ", data);
     const { isMarathonOver } = getTimerState();
     if (isMarathonOver) return;
@@ -73,6 +76,7 @@ export function AddTimeWithReSub(data) {
 }
 
 export function AddTimeWithGiftBomb(data) {
+    if(!allowTwitch) return;
     console.log("GiftBomb: ", data);
     const { isMarathonOver } = getTimerState();
     if (isMarathonOver) return;
@@ -90,6 +94,7 @@ export function AddTimeWithGiftBomb(data) {
 }
 
 export function addTimeKofiDonation(data) {
+    if(!allowKofi) return;
     console.log(data);
     const { isMarathonOver } = getTimerState();
     if (isMarathonOver) return;
@@ -113,55 +118,47 @@ export function addTimeKofiDonation(data) {
     }
 }
 
-// export function addTimeKofiSubscription(data) {
-//     console.log(data);
-//     //PENDIENTE
-// }
-
-// export function addTimeKofiResubscription(data) {
-//     console.log(data);
-//     //PENDIENTE
-// }
-
-// export function addTimeKofiShopOrder(data) {
-//     console.log(data);
-//     //PENDIENTE
-// }
-
 //STREAMELEMENTS
 export function addTimeStreamElementsTip(data){
+    if(!allowStreamElements) return;
     console.log(data);
 }
 
 //STREAMLABS
 export function addTimeStreamlabsDonation(data){
+    if(!allowStreamlabs) return;
     console.log(data);
     const cantidad = data.amount;
-
 }
 
 //YOUTUBE
 export function addTimeMemberMileStone(data){
+    if(!allowYoutube) return;
     console.log(data);
 }
 
 export function addTimeGiftMembershipReceived(data){
+    if(!allowYoutube) return;
     console.log(data);
 }
 
 export function addTimeMembershipGift(data){
+    if(!allowYoutube) return;
     console.log(data);
 }
 
 export function addTimeNewSponsor(data) {
+    if(!allowYoutube) return;
     console.log(data);
 }
 
 export function addTimeSuperchat(data) {
+    if(!allowYoutube) return;
     console.log(data);
 }
 
 export function addTimeSuperSticker(data) {
+    if(!allowYoutube) return;
     console.log(data);
 }
 
